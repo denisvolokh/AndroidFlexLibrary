@@ -1,0 +1,21 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace rating "com.ratingComponent.*";
+
+rating|RatingsComponent {
+	skinClass: ClassReference("com.ratingComponent.RatingsComponentSkin");
+/*	ratingIcon: Embed("com/ratingComponent/assets/star.png");
+	selectedRatingIcon: ClassReference(null);*/
+}
+
+rating|RatingIconComponent.star {
+	ratingIcon: ClassReference("com.ratingComponent.ratingIconLibrary.Star");
+	selectedRatingIcon: ClassReference("com.ratingComponent.ratingIconLibrary.StarSelected");	
+}
+
+rating|RatingIconComponent.plane {
+	ratingIcon: ClassReference("com.ratingComponent.ratingIconLibrary.Plane");
+	selectedRatingIcon: ClassReference("com.ratingComponent.ratingIconLibrary.PlaneSelected");	
+}
+
+

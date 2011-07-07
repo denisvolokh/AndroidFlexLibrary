@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:ratingIconLibrary="com.ratingComponent.ratingIconLibrary.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("com.ratingComponent.RatingIconComponent")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Group;
+			
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				if (iconHolder && iconHolder.numChildren == 0)
+				{
+					var iconClass : Class = hostComponent.getStyle("ratingIcon");
+					var icon : Group = new iconClass;
+					iconHolder.width = icon.width;
+					iconHolder.height = icon.height;
+					iconHolder.addElement(icon);	
+				}
+				 
+				if (selectedIconHolder && selectedIconHolder.numChildren == 0)
+				{
+					var selectedIconClass : Class = hostComponent.getStyle("selectedRatingIcon");
+					var selectedIcon : Group = new selectedIconClass();
+					selectedIconHolder.width = selectedIcon.width;
+					selectedIconHolder.height = selectedIcon.height;
+					selectedIconHolder.addElement(selectedIcon);	
+				} 
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="selected"/>
+	</s:states>
+	
+	<!--<ratingIconLibrary:Star id="icon" includeIn="normal"/>
+	<ratingIconLibrary:StarSelected id="selectedIcon" includeIn="selected"/>-->
+	
+	<s:Group id="iconHolder" includeIn="normal"/>
+	<s:Group id="selectedIconHolder" excludeFrom="normal"/>
+	
+	<!--<s:BitmapImage id="bitmapIcon"
+				   source.normal="@Embed('com/ratingComponent/assets/star.png')"
+				   source.selected="@Embed('com/ratingComponent/assets/starSelected.png')"/>-->
+</s:Skin>

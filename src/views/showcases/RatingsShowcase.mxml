@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="Rating Component Showcase" 
+		xmlns:ratingComponent="com.ratingComponent.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.events.IndexChangeEvent;
+			import spark.events.TextOperationEvent;
+			protected function ratings_currentValueChangedHandler(event:Event):void
+			{
+				if (inputCurrentValue)
+				{
+					inputCurrentValue.text = ratings.currentValue.toString();	
+				}
+			}
+			
+			protected function inputCurrentValue_changeHandler(event:TextOperationEvent):void
+			{
+				ratings.currentValue = Number(inputCurrentValue.text) 
+			}
+			
+			protected function radio_changeHandler(event:Event):void
+			{
+				ratings.ratingIconStyleName = String(RadioButton(event.currentTarget).value);				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:VGroup width="100%" height="100%">
+		<s:VGroup height="30%" width="100%"
+				  horizontalAlign="center"
+				  verticalAlign="middle">
+			<ratingComponent:RatingsComponent id="ratings"
+											  maxRatingValue="{ Number(inputMaxValue.text) }"
+											  currentValue="3"
+											  ratingIconStyleName="star"
+											  currentValueChanged="ratings_currentValueChangedHandler(event)"/>			
+		</s:VGroup>
+		
+		<s:VGroup horizontalAlign="center"
+				  verticalAlign="middle"
+				  width="100%"
+				  height="70%">
+			<s:Form width="100%">
+				<s:FormItem label="Maximum Value:" width="100%">
+					<s:TextInput id="inputMaxValue" 
+								 restrict="0-9" 
+								 text="3"
+								 width="100%"/>
+				</s:FormItem>
+				<s:FormItem label="Current Value:" width="100%">
+					<s:TextInput id="inputCurrentValue" 
+								 restrict="0-9" 
+								 text="3"
+								 width="100%"
+								 change="inputCurrentValue_changeHandler(event)"/>
+				</s:FormItem>
+				<s:FormItem label="Change Rating Icon:">
+					<s:VGroup width="100%">
+						<s:RadioButton id="radioStar" 
+									   value="star" 
+									   label="Star" 
+									   selected="true"
+									   change="radio_changeHandler(event)"/>
+						<s:RadioButton id="radioPlane" value="plane" label="Plane" change="radio_changeHandler(event)"/>
+					</s:VGroup>
+				</s:FormItem>
+			</s:Form>
+			
+		</s:VGroup>		
+	</s:VGroup>
+</s:View>
