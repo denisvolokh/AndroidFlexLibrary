@@ -26,6 +26,8 @@ package com.toast
 			super();
 			
 			setStyle("skinClass", ToastMessageSkin);
+			
+			this.percentWidth = 90;
 		}
 		
 		private static var toastTimer : Timer;
@@ -38,12 +40,13 @@ package com.toast
 			{
 				thisToast = new ToastMessage();
 				thisToast.message = message;
+				thisToast.width = parent.width - 20;
 			}
 			
 			callBack = callBackFunction;
 			
 			thisToast.open(parent);
-			thisToast.move(50, 50);
+			thisToast.move(10, 50);
 			
 			toastTimer = new Timer(duration * 1000, 1);
 			toastTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);

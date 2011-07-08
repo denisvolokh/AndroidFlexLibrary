@@ -8,7 +8,7 @@
 			import com.toast.ToastMessageSkin;
 			protected function buttonShowToast_clickHandler(event:MouseEvent):void
 			{
-				ToastMessage.showToast("test Message", this, ToastMessage.SHORT, function():void
+				ToastMessage.showToast("Long Long Long Message", this, ToastMessage.SHORT, function():void
 				{
 					buttonShowToast.label = "!!!!!!";
 				});

@@ -33,7 +33,7 @@
             {
                 // Push backgroundColor and backgroundAlpha directly.
                 // Handle undefined backgroundColor by hiding the background object.
-                if (isNaN(getStyle("backgroundColor")))
+                /* if (isNaN(getStyle("backgroundColor")))
                 {
                     background.visible = false;
                 }
@@ -42,8 +42,10 @@
                     background.visible = true;
                     bgFill.color = getStyle("backgroundColor");
                     bgFill.alpha = getStyle("backgroundAlpha");
-                }
+                } */
                 
+				contentGroup.width = hostComponent.width;
+				
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
         ]]>        
@@ -83,18 +85,17 @@
 			 bottom="0"
 			 visible.closedGroup="false">
 		
-		<s:Rect id="background"
+		<!--<s:Rect id="background"
 				left="0"
 				right="0"
 				top="0"
 				bottom="0">
 			<s:fill>
-				<!--- @private -->
 				<s:SolidColor id="bgFill"
 							  color="#000000"
 							  alpha=".75"/>
 			</s:fill>
-		</s:Rect>
+		</s:Rect>-->
 		
 		<!--
 		Note: setting the minimum size to 0 here so that changes to the host component's
@@ -113,7 +114,7 @@
 				<s:BasicLayout/>
 			</s:layout>
 			
-			<s:Group width="250"
+			<s:Group width="100%"
 					 height="40"
 					 horizontalCenter="0"
 					 verticalCenter="0">
@@ -122,16 +123,20 @@
 						height="100%"
 						radiusX="5"
 						radiusY="5">
+					<s:stroke>
+						<s:SolidColorStroke color="#cccccc" alpha="0.5" weight="2"/>
+					</s:stroke>
 					<s:fill>
-						<s:SolidColor color="#808080"/>
+						<s:SolidColor color="#4b4b4b"/>
 					</s:fill>
 				</s:Rect>
 				
 				<s:Label id="_messageLabel" 
 						 width="90%" 
 						 color="#FFFFFF" 
-						 fontSize="24"
-						 fontWeight="normal" 
+						 fontSize="16"
+						 fontWeight="normal"
+						 textAlign="center"
 						 maxDisplayedLines="4"
 						 horizontalCenter="0" verticalCenter="0"/>
 			</s:Group>
