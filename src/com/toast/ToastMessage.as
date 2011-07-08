@@ -41,15 +41,15 @@ package com.toast
 		
 		public static function showToast(message : String, parent : DisplayObjectContainer, duration : Number = SHORT, placement : String = "placementBottom", callBackFunction : Function = null):ToastMessage
 		{
-			if (!thisToast)
-			{
-				thisToast = new ToastMessage();
-				thisToast.message = message;
-			}
+			if (thisToast)
+				return thisToast;
+			
+			thisToast = new ToastMessage();
+			thisToast.message = message;
+			thisToast.open(parent);
+			
 			
 			callBack = callBackFunction;
-			
-			thisToast.open(parent);
 			
 			var tlm : TextLineMetrics = thisToast._messageLabel.measureText(message);
 			if (tlm.width + 20 >= parent.width)

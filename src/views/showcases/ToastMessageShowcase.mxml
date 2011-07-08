@@ -9,46 +9,53 @@
 			
 			protected function buttonShowToast_clickHandler(event:MouseEvent):void
 			{
-				ToastMessage.showToast("1234567890 123213 123213123 123213213 21312321312313 321312312", this, ToastMessage.SHORT, String(radioPlacement.selectedValue));
+				ToastMessage.showToast(textToast.text, this, ToastMessage.SHORT, String(radioPlacement.selectedValue));
 			}
 			
 			protected function buttonShowLongToast_clickHandler(event:MouseEvent):void
 			{
-				ToastMessage.showToast("1234567890", this, ToastMessage.LONG,  String(radioPlacement.selectedValue));
+				ToastMessage.showToast(textToast.text, this, ToastMessage.LONG,  String(radioPlacement.selectedValue));
 			}
 			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:RadioButtonGroup id="radioPlacement"/>
+		<s:RadioButtonGroup id="radioPlacement" selectedValue="{ ToastMessage.PLACEMENT_TOP }"/>
 	</fx:Declarations>
 	
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center"
 						  verticalAlign="middle"/>
 	</s:layout>
-		
+	
+	<s:TextArea id="textToast"
+				width="90%"
+				height="20%"
+				text="Lorem ipsum..."/>
+	
 	<s:VGroup verticalAlign="middle"
 			  horizontalAlign="left">
 		<s:RadioButton id="radioTop"
-					   label="Place Toast at the Top"
+					   label="Place on Top"
 					   value="{ ToastMessage.PLACEMENT_TOP }"
 					   groupName="radioPlacement"/>
 		<s:RadioButton id="radioCenter"
-					   label="Place Toast at the Center"
+					   label="Place in the Center"
 					   value="{ ToastMessage.PLACEMENT_CENTER }"
 					   groupName="radioPlacement"/>
 		<s:RadioButton id="radioBottom"
-					   label="Place Toast at the Bottom"
+					   label="Place at the Bottom"
 					   value="{ ToastMessage.PLACEMENT_BOTTOM }"
 					   groupName="radioPlacement"/>
 	</s:VGroup>
 		
 	<s:Button id="buttonShowLongToast"
 			  label="Show Long"
+			  width="50%"
 			  click="buttonShowLongToast_clickHandler(event)"/>
 	<s:Button id="buttonShowShortToast"
 			  label="Show Short"
+			  width="50%"
 			  click="buttonShowToast_clickHandler(event)"/>
 </s:View>
