@@ -136,7 +136,7 @@
 				
 				<s:Label id="_messageLabel" 
 						 color="#FFFFFF" 
-						 fontSize="16"
+						 fontSize="22"
 						 fontWeight="normal"
 						 textAlign="center"
 						 top="10"
