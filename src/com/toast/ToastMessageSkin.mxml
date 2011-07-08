@@ -91,13 +91,11 @@
 				left="0"
 				right="0"
 				top="0"
-				bottom="0"
-				radiusX="5"
-				radiusY="5">
+				bottom="0">
 			<s:fill>
 				<s:SolidColor id="bgFill"
-							  color="#000000"
-							  alpha="0"/>
+							  color="red"
+							  alpha="1"/>
 			</s:fill>
 		</s:Rect>-->
 		
@@ -118,7 +116,29 @@
 				<s:BasicLayout/>
 			</s:layout>
 			
-			<s:Group horizontalCenter="0"
+			<s:BorderContainer id="border"
+								horizontalCenter="0"
+							   verticalCenter="0"
+							   cornerRadius="5"
+							   backgroundColor="#4b4b4b"
+							   borderStyle="solid"
+							   borderWeight="1"
+							   borderColor="#cccccc"
+							   minHeight="40">
+				<s:Label id="_messageLabel" 
+						 color="#FFFFFF" 
+						 fontSize="22"
+						 fontWeight="normal"
+						 textAlign="center"
+						 top="10"
+						 bottom="10"
+						 left="10"
+						 right="10"
+						 horizontalCenter="0" 
+						 verticalCenter="0"/>
+			</s:BorderContainer>
+			
+			<!--<s:Group horizontalCenter="0"
 					 verticalCenter="0">
 				
 				<s:Rect id="bgRect"
@@ -126,9 +146,9 @@
 						height="100%"
 						radiusX="5"
 						radiusY="5">
-					<!--<s:stroke>
-						<s:SolidColorStroke color="#cccccc" alpha="1" weight="1" />
-					</s:stroke>-->
+					<s:stroke>
+						<s:SolidColorStroke color="red" alpha="1" weight="2" />
+					</s:stroke>
 					<s:fill>
 						<s:SolidColor color="#4b4b4b"/>
 					</s:fill>
@@ -144,7 +164,7 @@
 						 left="10"
 						 right="10"
 						 horizontalCenter="0" verticalCenter="0"/>
-			</s:Group>
+			</s:Group>-->
 		</s:Group>
 	</s:Group>
     
