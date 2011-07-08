@@ -3,10 +3,14 @@ package com.toast
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.text.TextLineMetrics;
 	import flash.utils.Timer;
+	
+	import mx.utils.StringUtil;
 	
 	import spark.components.Label;
 	import spark.components.SkinnablePopUpContainer;
+	import spark.components.TextArea;
 	
 	public class ToastMessage extends SkinnablePopUpContainer
 	{
@@ -29,8 +33,6 @@ package com.toast
 			super();
 			
 			setStyle("skinClass", ToastMessageSkin);
-			
-			this.percentWidth = 90;
 		}
 		
 		private static var toastTimer : Timer;
@@ -43,14 +45,21 @@ package com.toast
 			{
 				thisToast = new ToastMessage();
 				thisToast.message = message;
-				thisToast.width = parent.width - 20;
 			}
 			
 			callBack = callBackFunction;
 			
 			thisToast.open(parent);
 			
-			var toY : Number = 80;
+			var tlm : TextLineMetrics = thisToast._messageLabel.measureText(message);
+			if (tlm.width + 20 >= parent.width)
+			{
+				thisToast.width = parent.width - 20;
+				thisToast._messageLabel.width = parent.width - 40;
+			}
+			
+			var toY : Number;
+			var toX : Number = (parent.width - thisToast.width) / 2;
 			
 			switch (placement)
 			{
@@ -61,11 +70,11 @@ package com.toast
 					toY = (parent.height - thisToast.height) / 2;
 					break;
 				case PLACEMENT_TOP:
-					
+					toY = 80;
 					break;
 			}
 			
-			thisToast.move(10, toY);
+			thisToast.move(toX, toY);
 			
 			toastTimer = new Timer(duration * 1000, 1);
 			toastTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
@@ -81,6 +90,9 @@ package com.toast
 		
 		public static function closeToast():void
 		{
+			if (!thisToast)
+				return;
+			
 			if (toastTimer && toastTimer.running)
 			{
 				toastTimer.stop();

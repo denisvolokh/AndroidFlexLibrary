@@ -9,12 +9,12 @@
 			
 			protected function buttonShowToast_clickHandler(event:MouseEvent):void
 			{
-				ToastMessage.showToast("Long Long Long Message", this, ToastMessage.SHORT, String(radioPlacement.selectedValue));
+				ToastMessage.showToast("1234567890 123213 123213123 123213213 21312321312313 321312312", this, ToastMessage.SHORT, String(radioPlacement.selectedValue));
 			}
 			
 			protected function buttonShowLongToast_clickHandler(event:MouseEvent):void
 			{
-				ToastMessage.showToast("Long Long Long Message", this, ToastMessage.LONG,  String(radioPlacement.selectedValue));
+				ToastMessage.showToast("1234567890", this, ToastMessage.LONG,  String(radioPlacement.selectedValue));
 			}
 			
 		]]>
