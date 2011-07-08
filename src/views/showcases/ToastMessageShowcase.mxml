@@ -6,26 +6,49 @@
 		<![CDATA[
 			import com.toast.ToastMessage;
 			import com.toast.ToastMessageSkin;
+			
 			protected function buttonShowToast_clickHandler(event:MouseEvent):void
 			{
-				ToastMessage.showToast("Long Long Long Message", this, ToastMessage.SHORT, function():void
-				{
-					buttonShowToast.label = "!!!!!!";
-				});
+				ToastMessage.showToast("Long Long Long Message", this, ToastMessage.SHORT, String(radioPlacement.selectedValue));
 			}
+			
+			protected function buttonShowLongToast_clickHandler(event:MouseEvent):void
+			{
+				ToastMessage.showToast("Long Long Long Message", this, ToastMessage.LONG,  String(radioPlacement.selectedValue));
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RadioButtonGroup id="radioPlacement"/>
 	</fx:Declarations>
 	
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center"
 						  verticalAlign="middle"/>
 	</s:layout>
-	
-	<s:Button id="buttonShowToast"
-			  label="Show Toast message"
+		
+	<s:VGroup verticalAlign="middle"
+			  horizontalAlign="left">
+		<s:RadioButton id="radioTop"
+					   label="Place Toast at the Top"
+					   value="{ ToastMessage.PLACEMENT_TOP }"
+					   groupName="radioPlacement"/>
+		<s:RadioButton id="radioCenter"
+					   label="Place Toast at the Center"
+					   value="{ ToastMessage.PLACEMENT_CENTER }"
+					   groupName="radioPlacement"/>
+		<s:RadioButton id="radioBottom"
+					   label="Place Toast at the Bottom"
+					   value="{ ToastMessage.PLACEMENT_BOTTOM }"
+					   groupName="radioPlacement"/>
+	</s:VGroup>
+		
+	<s:Button id="buttonShowLongToast"
+			  label="Show Long"
+			  click="buttonShowLongToast_clickHandler(event)"/>
+	<s:Button id="buttonShowShortToast"
+			  label="Show Short"
 			  click="buttonShowToast_clickHandler(event)"/>
 </s:View>

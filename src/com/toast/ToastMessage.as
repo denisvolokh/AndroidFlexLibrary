@@ -11,8 +11,11 @@ package com.toast
 	public class ToastMessage extends SkinnablePopUpContainer
 	{
 		public static const SHORT : Number = 2;
-		
 		public static const LONG : Number = 5;
+		
+		public static const PLACEMENT_CENTER : String = "placementCenter";
+		public static const PLACEMENT_TOP : String = "placementTop";
+		public static const PLACEMENT_BOTTOM : String = "placementBottom";
 		
 		[SkinPart(required="true")]
 		public var _messageLabel:Label;
@@ -34,7 +37,7 @@ package com.toast
 		
 		private static var callBack : Function;
 		
-		public static function showToast(message : String, parent : DisplayObjectContainer, duration : Number = SHORT, callBackFunction : Function = null):ToastMessage
+		public static function showToast(message : String, parent : DisplayObjectContainer, duration : Number = SHORT, placement : String = "placementBottom", callBackFunction : Function = null):ToastMessage
 		{
 			if (!thisToast)
 			{
@@ -46,7 +49,23 @@ package com.toast
 			callBack = callBackFunction;
 			
 			thisToast.open(parent);
-			thisToast.move(10, 50);
+			
+			var toY : Number = 80;
+			
+			switch (placement)
+			{
+				case PLACEMENT_BOTTOM: 
+					toY = parent.height - 5 - thisToast.height;
+					break;
+				case PLACEMENT_CENTER:
+					toY = (parent.height - thisToast.height) / 2;
+					break;
+				case PLACEMENT_TOP:
+					
+					break;
+			}
+			
+			thisToast.move(10, toY);
 			
 			toastTimer = new Timer(duration * 1000, 1);
 			toastTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
