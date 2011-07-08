@@ -3,7 +3,7 @@
 @namespace rating "com.ratingComponent.*";
 
 rating|RatingsComponent {
-	skinClass: ClassReference("com.ratingComponent.RatingsComponentSkin");
+	skinClass: ClassReference("com.ratingComponent.RatingSkin");
 /*	ratingIcon: Embed("com/ratingComponent/assets/star.png");
 	selectedRatingIcon: ClassReference(null);*/
 }

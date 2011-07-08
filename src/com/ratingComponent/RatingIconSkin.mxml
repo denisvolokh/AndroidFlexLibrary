@@ -4,7 +4,7 @@
 		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:ratingIconLibrary="com.ratingComponent.ratingIconLibrary.*">
 	<!-- host component -->
 	<fx:Metadata>
-		[HostComponent("com.ratingComponent.RatingIconComponent")]
+		[HostComponent("com.ratingComponent.RatingIcon")]
 	</fx:Metadata>
 	
 	<fx:Script>

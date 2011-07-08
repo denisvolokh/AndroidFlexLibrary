@@ -33,7 +33,7 @@
 		<s:VGroup height="30%" width="100%"
 				  horizontalAlign="center"
 				  verticalAlign="middle">
-			<ratingComponent:RatingsComponent id="ratings"
+			<ratingComponent:Rating id="ratings"
 											  maxRatingValue="{ Number(inputMaxValue.text) }"
 											  currentValue="3"
 											  ratingIconStyleName="star"

@@ -15,12 +15,12 @@ package com.ratingComponent
 	
 	[Event(name="currentValueChanged", type="flash.events.Event")]
 	
-	public class RatingsComponent extends SkinnableComponent
+	public class Rating extends SkinnableComponent
 	{
 		[SkinPart("true")]
 		public var iconsHolder : HGroup;
 		
-		public function RatingsComponent()
+		public function Rating()
 		{
 			super();
 		}
@@ -131,8 +131,8 @@ package com.ratingComponent
 			iconsHolder.removeAllElements();			
 			
 			for (var i:int = 0; i < maxRatingValue; i++) {
-				var icon : RatingIconComponent = new RatingIconComponent();
-				icon.setStyle("skinClass", RatingIconComponentSkin);
+				var icon : RatingIcon = new RatingIcon();
+				icon.setStyle("skinClass", RatingIconSkin);
 				icon.setStyle("styleName", ratingIconStyleName);
 				iconsHolder.addElement(icon);
 				icon.addEventListener(MouseEvent.CLICK, handleIconClick);
@@ -145,7 +145,7 @@ package com.ratingComponent
 		{
 			for (var i:int = 0; i < iconsHolder.numChildren; i++) 
 			{
-				var _icon : RatingIconComponent = RatingIconComponent(iconsHolder.getElementAt(i));
+				var _icon : RatingIcon = RatingIcon(iconsHolder.getElementAt(i));
 				
 				if (i <= _currentValue)
 				{
@@ -160,7 +160,7 @@ package com.ratingComponent
 		
 		private function handleIconClick(event : MouseEvent):void
 		{
-			var icon : RatingIconComponent = RatingIconComponent(event.currentTarget);
+			var icon : RatingIcon = RatingIcon(event.currentTarget);
 			var index : int = iconsHolder.getElementIndex(icon);
 			_currentValue = index;
 			
