@@ -31,19 +31,8 @@
              */
             override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
             {
-                // Push backgroundColor and backgroundAlpha directly.
-                // Handle undefined backgroundColor by hiding the background object.
-                if (isNaN(getStyle("backgroundColor")))
-                {
-                    background.visible = false;
-                }
-                else
-                {
-                    background.visible = true;
-                    bgFill.color = getStyle("backgroundColor");
-                    bgFill.alpha = getStyle("backgroundAlpha");
-                }
-                
+				contentGroup.width = hostComponent.width;
+				
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
         ]]>        
@@ -74,7 +63,22 @@
             <s:Fade duration="150" target="{chrome}"/>
         </s:Transition>
     </s:transitions>
-        
+    
+	<!-- drop shadow -->
+	<s:Rect left="0" top="0" right="0" bottom="0">
+		<s:filters>
+			<s:DropShadowFilter 
+				blurX="20" blurY="20" 
+				alpha="0.32" 
+				distance="11" 
+				angle="90"                 
+				knockout="true"/>
+		</s:filters>
+		<s:fill>
+			<s:SolidColor color="0x000000"/>
+		</s:fill>
+	</s:Rect>
+	
     <!--- Defines the background and content group used by this skin. -->
 	<s:Group id="chrome"
 			 left="0"
@@ -83,18 +87,19 @@
 			 bottom="0"
 			 visible.closedGroup="false">
 		
-		<s:Rect id="background"
+		<!--<s:Rect id="background"
 				left="0"
 				right="0"
 				top="0"
-				bottom="0">
+				bottom="0"
+				radiusX="5"
+				radiusY="5">
 			<s:fill>
-				<!--- @private -->
 				<s:SolidColor id="bgFill"
 							  color="#000000"
-							  alpha=".75"/>
+							  alpha="0"/>
 			</s:fill>
-		</s:Rect>
+		</s:Rect>-->
 		
 		<!--
 		Note: setting the minimum size to 0 here so that changes to the host component's
@@ -113,26 +118,31 @@
 				<s:BasicLayout/>
 			</s:layout>
 			
-			<s:Group width="250"
-					 height="40"
-					 horizontalCenter="0"
+			<s:Group horizontalCenter="0"
 					 verticalCenter="0">
 				
-				<s:Rect width="100%"
+				<s:Rect id="bgRect"
+						width="100%"
 						height="100%"
 						radiusX="5"
 						radiusY="5">
+					<!--<s:stroke>
+						<s:SolidColorStroke color="#cccccc" alpha="1" weight="1" />
+					</s:stroke>-->
 					<s:fill>
-						<s:SolidColor color="#808080"/>
+						<s:SolidColor color="#4b4b4b"/>
 					</s:fill>
 				</s:Rect>
 				
 				<s:Label id="_messageLabel" 
-						 width="90%" 
 						 color="#FFFFFF" 
-						 fontSize="24"
-						 fontWeight="normal" 
-						 maxDisplayedLines="4"
+						 fontSize="16"
+						 fontWeight="normal"
+						 textAlign="center"
+						 top="10"
+						 bottom="10"
+						 left="10"
+						 right="10"
 						 horizontalCenter="0" verticalCenter="0"/>
 			</s:Group>
 		</s:Group>
