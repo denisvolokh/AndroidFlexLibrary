@@ -74,7 +74,21 @@
             <s:Fade duration="150" target="{chrome}"/>
         </s:Transition>
     </s:transitions>
-        
+    
+	<s:Rect left="0" top="0" right="0" bottom="0">
+		<s:filters>
+			<s:DropShadowFilter 
+				blurX="20" blurY="20" 
+				alpha="0.32" 
+				distance="11" 
+				angle="90"                 
+				knockout="true"/>
+		</s:filters>
+		<s:fill>
+			<s:SolidColor color="0x000000"/>
+		</s:fill>
+	</s:Rect>
+	
     <!--- Defines the background and content group used by this skin. -->
     <s:Group id="chrome" left="0" right="0" top="0" bottom="0" visible.closedGroup="false">
 
