@@ -15,7 +15,7 @@ package com.toast
 	public class ToastMessage extends SkinnablePopUpContainer
 	{
 		public static const SHORT : Number = 2;
-		public static const LONG : Number = 5;
+		public static const LONG : Number = 10;
 		
 		public static const PLACEMENT_CENTER : String = "placementCenter";
 		public static const PLACEMENT_TOP : String = "placementTop";

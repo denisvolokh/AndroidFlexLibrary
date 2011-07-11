@@ -63,21 +63,6 @@
             <s:Fade duration="150" target="{chrome}"/>
         </s:Transition>
     </s:transitions>
-    
-	<!-- drop shadow -->
-	<s:Rect left="0" top="0" right="0" bottom="0">
-		<s:filters>
-			<s:DropShadowFilter 
-				blurX="20" blurY="20" 
-				alpha="0.32" 
-				distance="11" 
-				angle="90"                 
-				knockout="true"/>
-		</s:filters>
-		<s:fill>
-			<s:SolidColor color="0x000000"/>
-		</s:fill>
-	</s:Rect>
 	
     <!--- Defines the background and content group used by this skin. -->
 	<s:Group id="chrome"
@@ -87,24 +72,33 @@
 			 bottom="0"
 			 visible.closedGroup="false">
 		
-		<!--<s:Rect id="background"
-				left="0"
-				right="0"
-				top="0"
-				bottom="0">
+		<s:Rect id="background" 
+			    left="0" right="0" top="1" bottom="0" 
+				radiusX="5"
+				radiusY="5">
+			<s:filters>
+				<s:DropShadowFilter color="0x000000" 
+									blurX="20" 
+									blurY="20"
+									distance="8" 
+									angle="90"
+									alpha="0.30"/>
+			</s:filters>
 			<s:fill>
-				<s:SolidColor id="bgFill"
-							  color="red"
-							  alpha="1"/>
+				<s:SolidColor color="0x4b4b4b"/>
 			</s:fill>
-		</s:Rect>-->
+			<s:stroke>
+				<s:SolidColorStroke  weight="1" color="#cccccc" joints="bevel" alpha=".5"/>
+			</s:stroke>
+		</s:Rect>
 		
-		<!--
-		Note: setting the minimum size to 0 here so that changes to the host component's
-		size will not be thwarted by this skin part's minimum size.   This is a compromise,
-		more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
-		-->
 		<!--- @copy spark.components.SkinnableContainer#contentGroup -->
+		<!--<s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
+			<s:layout>
+				<s:BasicLayout/>
+			</s:layout>
+		</s:Group>-->
+		
 		<s:Group id="contentGroup"
 				 left="0"
 				 right="0"
@@ -116,8 +110,20 @@
 				<s:BasicLayout/>
 			</s:layout>
 			
-			<s:BorderContainer id="border"
-								horizontalCenter="0"
+			<s:Label id="_messageLabel" 
+					 color="#FFFFFF" 
+					 fontSize="20"
+					 fontWeight="normal"
+					 textAlign="center"
+					 top="15"
+					 bottom="15"
+					 left="15"
+					 right="15"
+					 horizontalCenter="0" 
+					 verticalCenter="0"/>
+			
+			<!--<s:BorderContainer id="border"
+							   horizontalCenter="0"
 							   verticalCenter="0"
 							   cornerRadius="5"
 							   backgroundColor="#4b4b4b"
@@ -127,44 +133,16 @@
 							   minHeight="40">
 				<s:Label id="_messageLabel" 
 						 color="#FFFFFF" 
-						 fontSize="22"
+						 fontSize="20"
 						 fontWeight="normal"
 						 textAlign="center"
-						 top="10"
-						 bottom="10"
-						 left="10"
-						 right="10"
+						 top="15"
+						 bottom="15"
+						 left="15"
+						 right="15"
 						 horizontalCenter="0" 
 						 verticalCenter="0"/>
-			</s:BorderContainer>
-			
-			<!--<s:Group horizontalCenter="0"
-					 verticalCenter="0">
-				
-				<s:Rect id="bgRect"
-						width="100%"
-						height="100%"
-						radiusX="5"
-						radiusY="5">
-					<s:stroke>
-						<s:SolidColorStroke color="red" alpha="1" weight="2" />
-					</s:stroke>
-					<s:fill>
-						<s:SolidColor color="#4b4b4b"/>
-					</s:fill>
-				</s:Rect>
-				
-				<s:Label id="_messageLabel" 
-						 color="#FFFFFF" 
-						 fontSize="22"
-						 fontWeight="normal"
-						 textAlign="center"
-						 top="10"
-						 bottom="10"
-						 left="10"
-						 right="10"
-						 horizontalCenter="0" verticalCenter="0"/>
-			</s:Group>-->
+			</s:BorderContainer>-->
 		</s:Group>
 	</s:Group>
     
