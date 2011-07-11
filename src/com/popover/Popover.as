@@ -1,6 +1,7 @@
 package com.popover
 {
 	import flash.events.Event;
+	import flash.geom.Point;
 	
 	import mx.core.UIComponent;
 	import mx.events.FlexMouseEvent;
@@ -32,7 +33,15 @@ package com.popover
 			}
 			
 			this.open(parent);
-			this.move(target.x, target.y);
+			var globalPoint : Point = new Point(target.x, target.y);
+			globalPoint = parent.contentToGlobal(globalPoint);
+			var dx : Number = 0;
+			var dy : Number = 0;
+			
+			dx = (target.width - this.width) / 2;
+			dy = target.y - this.height - 10;
+			
+			this.move(globalPoint.x + dx, globalPoint.y + dy);
 			
 			this.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, onMouseDownOutsideHandler);
 			

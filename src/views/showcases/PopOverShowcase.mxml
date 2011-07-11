@@ -34,7 +34,6 @@
 			
 		]]>
 	</fx:Script>
-	<popover:ListContent />
 	<s:Button label="Example 1"
 			  click="button1_clickHandler(event)"/>
 	<s:Spacer height="100%"/>

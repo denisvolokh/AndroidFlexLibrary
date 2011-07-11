@@ -9,14 +9,12 @@
 	</s:layout>
 	<s:itemRenderer>
 		<fx:Component>
-			<s:IconItemRenderer iconField="icon" labelField="name" 
-								iconHeight="32" iconWidth="32"
-								iconPlaceholder="@Embed(source='data/ru.png')"/>
+			<s:IconItemRenderer iconField="url" labelField="name"/> 
 		</fx:Component>
 	</s:itemRenderer>
 	<s:ArrayCollection>
-		<fx:Object name="Russia" icon="data/ru.png"/>
-		<fx:Object name="Denmark" icon="data/dm.png"/>
-		<fx:Object name="Great Britain" icon="data/uk.png"/>
+		<fx:Object name="Russia" url="com/popover/data/ru.png"/>
+		<fx:Object name="Denmark" url="com/popover/data/dm.png"/>
+		<fx:Object name="Great Britain" url="com/popover/data/uk.png"/>
 	</s:ArrayCollection>
 </s:List>
