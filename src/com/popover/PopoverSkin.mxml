@@ -33,7 +33,7 @@
             {
                 // Push backgroundColor and backgroundAlpha directly.
                 // Handle undefined backgroundColor by hiding the background object.
-                if (isNaN(getStyle("backgroundColor")))
+                /* if (isNaN(getStyle("backgroundColor")))
                 {
                     background.visible = false;
                 }
@@ -42,7 +42,7 @@
                     background.visible = true;
                     bgFill.color = getStyle("backgroundColor");
                     bgFill.alpha = getStyle("backgroundAlpha");
-                }
+                } */
                 
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
@@ -89,26 +89,11 @@
 		</s:fill>
 	</s:Rect>
 	
-    <!--- Defines the background and content group used by this skin. -->
     <s:Group id="chrome" left="0" right="0" top="0" bottom="0" visible.closedGroup="false">
-
-        <!--- Defines the appearance of the SkinnablePopUpContainer class's background. -->
-        <s:Rect id="background" left="0" right="0" top="0" bottom="0">
-            <s:fill>
-                <!--- @private -->
-                <s:SolidColor id="bgFill" color="#FFFFFF"/>
-            </s:fill>
-        </s:Rect>
-        
-        <!--
-        Note: Setting the minimum size to 0 here so that changes to the host component's
-        size will not be thwarted by this skin part's minimum size.   This is a compromise,
-        more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
-        -->
-        <!--- @copy spark.components.SkinnableContainer#contentGroup -->
+		
         <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
             <s:layout>
-                <s:BasicLayout/>
+                <s:VerticalLayout horizontalAlign="center" verticalAlign="middle" gap="-2"/>
             </s:layout>
 			
 			<s:Group horizontalCenter="0"
@@ -132,7 +117,13 @@
 						  verticalAlign="middle"
 						  horizontalAlign="center"/>
 			</s:Group>
-			
+			<!--<s:Group id="bottomArrow">
+				<s:Path winding="nonZero" data="M 13 23 L 0 1 L 26 1 L 13 23 Z " >
+					<s:fill>
+						<s:SolidColor color="#4b4b4b"/>
+					</s:fill>
+				</s:Path>
+			</s:Group>-->
         </s:Group>
     </s:Group>
     
