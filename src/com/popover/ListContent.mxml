@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		width="250">
+	<s:layout>
+		<s:VerticalLayout gap="0"
+						  horizontalAlign="contentJustify"
+						  requestedRowCount="-1"/>
+	</s:layout>
+	<s:itemRenderer>
+		<fx:Component>
+			<s:IconItemRenderer iconField="url" labelField="name"/> 
+		</fx:Component>
+	</s:itemRenderer>
+	<s:ArrayCollection>
+		<fx:Object name="Russia" url="com/popover/data/ru.png"/>
+		<fx:Object name="Denmark" url="com/popover/data/dm.png"/>
+		<fx:Object name="Great Britain" url="com/popover/data/uk.png"/>
+	</s:ArrayCollection>
+</s:List>
