@@ -32,6 +32,13 @@
 				popover.show(this, event.currentTarget as Button, customContent);
 			}
 			
+			protected function button3_clickHandler(event:MouseEvent):void
+			{
+				var popover : Popover = new Popover();
+				var customContent : ListContent = new ListContent();
+				popover.show(this, event.currentTarget as Button, customContent);
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Button label="Example 1"
@@ -40,6 +47,6 @@
 	<s:Button label="Example 2"
 			  click="button2_clickHandler(event)"/>
 	<s:Spacer height="100%"/>
-	<s:Button label="Example 2"
-			  click="button2_clickHandler(event)"/>
+	<s:Button label="Example 3"
+			  click="button3_clickHandler(event)"/>
 </s:View>

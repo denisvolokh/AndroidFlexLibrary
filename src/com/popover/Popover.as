@@ -9,6 +9,14 @@ package com.popover
 	import spark.components.SkinnablePopUpContainer;
 	import spark.components.VGroup;
 	
+	[SkinState("normal")]
+	
+	[SkinState("disabled")]
+	
+	[SkinState("top")]
+	
+	[SkinState("bottom")]
+	
 	public class Popover extends SkinnablePopUpContainer
 	{
 		public function Popover()
@@ -38,8 +46,23 @@ package com.popover
 			var dx : Number = 0;
 			var dy : Number = 0;
 			
-			dx = (target.width - this.width) / 2;
-			dy = target.y - this.height - 10;
+			if (globalPoint.y > parent.height / 2) // target is in bottom half of the view
+			{
+				dx = (target.width - this.width) / 2;
+				dy = -(this.height + 20);	
+				_isBottom = true;
+				invalidateSkinState();
+			}
+			else
+			{
+				if (globalPoint.y - this.height <= 0)
+				{
+					dx = (target.width - this.width) / 2;
+					dy = target.height;	
+					_isTop = true;
+					invalidateSkinState();
+				}					
+			}
 			
 			this.move(globalPoint.x + dx, globalPoint.y + dy);
 			
@@ -51,6 +74,10 @@ package com.popover
 		public function hide():void
 		{
 			this.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, onMouseDownOutsideHandler);
+			
+			_isTop = false;
+			_isBottom = false;
+			invalidateSkinState();
 			
 			this.close();
 		}
@@ -95,5 +122,14 @@ package com.popover
 				invalidateDisplayList();
 			}
 		}
+		
+		override protected function getCurrentSkinState():String
+		{
+			return _isBottom ? "bottom" : _isTop ? "top" : "normal";
+		} 
+		
+		private var _isBottom : Boolean = false
+			
+		private var _isTop : Boolean = false	
 	}
 }

@@ -54,6 +54,10 @@
         <s:State name="disabled"/>
         <s:State name="closed" stateGroups="closedGroup"/>
         <s:State name="disabledAndClosed" stateGroups="closedGroup"/>
+		<s:State name="top"/>
+		<s:State name="bottom"/>
+		<s:State name="right"/>
+		<s:State name="left"/>
     </s:states>
     
     <!-- Transitions for open and close -->
@@ -74,20 +78,6 @@
             <s:Fade duration="150" target="{chrome}"/>
         </s:Transition>
     </s:transitions>
-    
-	<s:Rect left="0" top="0" right="0" bottom="0">
-		<s:filters>
-			<s:DropShadowFilter 
-				blurX="20" blurY="20" 
-				alpha="0.32" 
-				distance="11" 
-				angle="90"                 
-				knockout="true"/>
-		</s:filters>
-		<s:fill>
-			<s:SolidColor color="0x000000"/>
-		</s:fill>
-	</s:Rect>
 	
     <s:Group id="chrome" left="0" right="0" top="0" bottom="0" visible.closedGroup="false">
 		
@@ -96,34 +86,91 @@
                 <s:VerticalLayout horizontalAlign="center" verticalAlign="middle" gap="-2"/>
             </s:layout>
 			
-			<s:Group horizontalCenter="0"
-					 verticalCenter="0">
-				
-				<s:Rect id="bgRect"
-						width="100%"
-						height="100%"
-						radiusX="5"
-						radiusY="5">
+			<s:filters>
+				<s:DropShadowFilter color="0x000000" 
+									blurX="20" 
+									blurY="20"
+									distance="8" 
+									angle="90"
+									alpha="0.30"/>
+			</s:filters>
+			
+			<s:Group id="topArrow" includeIn="top">
+				<s:Path winding="nonZero" data="M 13 1 L 0 23 L 26 23 L 13 1 Z " >
 					<s:fill>
 						<s:SolidColor color="#4b4b4b"/>
 					</s:fill>
-				</s:Rect>
-				
-				<s:VGroup id="customContentHolder"
-						  bottom="5"
-						  top="5"
-						  left="5"
-						  right="5"
-						  verticalAlign="middle"
-						  horizontalAlign="center"/>
+					<!--<s:stroke>
+						<s:SolidColorStroke  weight="1" color="#cccccc" joints="bevel" alpha=".5"/>
+					</s:stroke>-->
+				</s:Path>
 			</s:Group>
-			<!--<s:Group id="bottomArrow">
+			
+			
+			<s:Group>
+				<s:layout>
+					<s:HorizontalLayout horizontalAlign="center"
+										verticalAlign="middle"
+										gap="-2"/>
+				</s:layout>
+				
+				<s:Group id="leftArrow" includeIn="left">
+					<s:Path winding="nonZero" data="M 2 12 L 24 25 L 24 -1 L 2 12 Z " >
+						<s:fill>
+							<s:SolidColor color="#4b4b4b"/>
+						</s:fill>
+						<s:stroke>
+							<s:SolidColorStroke  weight="1" color="#cccccc" joints="bevel" alpha=".5"/>
+						</s:stroke>
+					</s:Path>
+				</s:Group>
+				
+				<s:Group horizontalCenter="0"
+						 verticalCenter="0">
+					<s:Rect id="background" 
+							left="0" right="0" top="1" bottom="0" 
+							radiusX="5"
+							radiusY="5">
+						<s:fill>
+							<s:SolidColor color="0x4b4b4b"/>
+						</s:fill>
+						<s:stroke>
+							<s:SolidColorStroke  weight="1" color="#cccccc" joints="bevel" alpha=".5"/>
+						</s:stroke>
+					</s:Rect>	
+					
+					<s:VGroup id="customContentHolder"
+							  bottom="5"
+							  top="5"
+							  left="5"
+							  right="5"
+							  verticalAlign="middle"
+							  horizontalAlign="center"/>
+				</s:Group>
+				
+				<s:Group id="rightArrow" includeIn="right">
+					<s:Path data="M 24 12 L 2 -1 L 2 25 L 24 12 Z " winding="nonZero">
+						<s:fill>
+							<s:SolidColor color="#4b4b4b"/>
+						</s:fill>
+						<s:stroke>
+							<s:SolidColorStroke  weight="1" color="#cccccc" joints="bevel" alpha=".5"/>
+						</s:stroke>
+					</s:Path>
+				</s:Group>
+				
+			</s:Group>
+			
+			<s:Group id="bottomArrow" includeIn="bottom">
 				<s:Path winding="nonZero" data="M 13 23 L 0 1 L 26 1 L 13 23 Z " >
 					<s:fill>
 						<s:SolidColor color="#4b4b4b"/>
 					</s:fill>
+					<!--<s:stroke>
+						<s:SolidColorStroke  weight="1" color="#cccccc" joints="bevel" alpha=".5"/>
+					</s:stroke>-->
 				</s:Path>
-			</s:Group>-->
+			</s:Group>
         </s:Group>
     </s:Group>
     
