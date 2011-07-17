@@ -4,7 +4,7 @@
 		xmlns:mx="library://ns.adobe.com/flex/mx">
 	<!-- host component -->
 	<fx:Metadata>
-		[HostComponent("com.ratingComponent.RatingsComponent")]
+		[HostComponent("com.ratingComponent.Rating")]
 	</fx:Metadata>
 	
 	<s:states>

@@ -13,9 +13,9 @@ package com.ratingComponent
 	
 	[Style(name="selectedRatingIcon",type="ClassReference")]
 	
-	public class RatingIconComponent extends SkinnableComponent
+	public class RatingIcon extends SkinnableComponent
 	{
-		public function RatingIconComponent()
+		public function RatingIcon()
 		{
 			super();
 		}
