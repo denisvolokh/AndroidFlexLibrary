@@ -26,10 +26,8 @@ package com.ratingComponent
 				return;
 			
 			_selected = value;
-			//selectedChanged = true;
 			
 			invalidateSkinState();
-			//invalidateProperties();
 		}
 		
 		override protected function getCurrentSkinState() : String

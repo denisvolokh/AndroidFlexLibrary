@@ -8,6 +8,7 @@
 		<![CDATA[
 			import spark.events.IndexChangeEvent;
 			import spark.events.TextOperationEvent;
+			
 			protected function ratings_currentValueChangedHandler(event:Event):void
 			{
 				if (inputCurrentValue)
@@ -21,11 +22,6 @@
 				ratings.currentValue = Number(inputCurrentValue.text) 
 			}
 			
-			protected function radio_changeHandler(event:Event):void
-			{
-				ratings.ratingIconStyleName = String(RadioButton(event.currentTarget).value);				
-			}
-			
 		]]>
 	</fx:Script>
 	<s:navigationContent>
@@ -37,10 +33,11 @@
 				  horizontalAlign="center"
 				  verticalAlign="middle">
 			<ratingComponent:Rating id="ratings"
-											  maxRatingValue="{ Number(inputMaxValue.text) }"
-											  currentValue="3"
-											  ratingIconStyleName="star"
-											  currentValueChanged="ratings_currentValueChangedHandler(event)"/>			
+									height="30"
+									skinClass="com.ratingComponent.RatingSkin"
+									maxRatingValue="{ Number(inputMaxValue.text) }"
+									currentValue="3"
+									currentValueChanged="ratings_currentValueChangedHandler(event)"/>			
 		</s:VGroup>
 		
 		<s:VGroup horizontalAlign="center"
@@ -60,16 +57,6 @@
 								 text="3"
 								 width="100%"
 								 change="inputCurrentValue_changeHandler(event)"/>
-				</s:FormItem>
-				<s:FormItem label="Change Rating Icon:">
-					<s:VGroup width="100%">
-						<s:RadioButton id="radioStar" 
-									   value="star" 
-									   label="Star" 
-									   selected="true"
-									   change="radio_changeHandler(event)"/>
-						<s:RadioButton id="radioPlane" value="plane" label="Plane" change="radio_changeHandler(event)"/>
-					</s:VGroup>
 				</s:FormItem>
 			</s:Form>
 			

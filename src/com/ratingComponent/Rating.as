@@ -103,14 +103,14 @@ package com.ratingComponent
 				invalidateDisplayList();
 			}
 			
-			if (ratingIconStyleNameChanged)
+			/*if (ratingIconStyleNameChanged)
 			{
 				ratingIconStyleNameChanged = false;
 				
 				setupRatingIcons();
 				
 				invalidateDisplayList();
-			}
+			}*/
 		}
 
 		override protected function partAdded(partName:String, instance:Object):void
@@ -131,9 +131,8 @@ package com.ratingComponent
 			iconsHolder.removeAllElements();			
 			
 			for (var i:int = 0; i < maxRatingValue; i++) {
-				var icon : RatingIcon = new RatingIcon();
-				icon.setStyle("skinClass", RatingIconSkin);
-				icon.setStyle("styleName", ratingIconStyleName);
+				var icon : RatingStarContainer = new RatingStarContainer();
+				icon.setStyle("skinClass", RatingStarContainerSkin);
 				iconsHolder.addElement(icon);
 				icon.addEventListener(MouseEvent.CLICK, handleIconClick);
 			}
@@ -145,7 +144,7 @@ package com.ratingComponent
 		{
 			for (var i:int = 0; i < iconsHolder.numChildren; i++) 
 			{
-				var _icon : RatingIcon = RatingIcon(iconsHolder.getElementAt(i));
+				var _icon : RatingStarContainer = RatingStarContainer(iconsHolder.getElementAt(i));
 				
 				if (i <= _currentValue)
 				{
@@ -160,7 +159,7 @@ package com.ratingComponent
 		
 		private function handleIconClick(event : MouseEvent):void
 		{
-			var icon : RatingIcon = RatingIcon(event.currentTarget);
+			var icon : RatingStarContainer = RatingStarContainer(event.currentTarget);
 			var index : int = iconsHolder.getElementIndex(icon);
 			_currentValue = index;
 			
