@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="1.0" ai:appVersion="14.0.0.367" d:id="1" xmlns="http://ns.adobe.com/fxg/2008" xmlns:ai="http://ns.adobe.com/ai/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt">
+  <Group d:id="2" d:type="layer" d:userLabel="Layer 1">
+    <Group ai:knockout="0" d:id="3">
+      <filters>
+        <GlowFilter alpha="0.75" blurX="10" blurY="10" color="#000000" quality="3"/>
+      </filters>
+      <Path winding="nonZero" ai:knockout="0" data="M85.6743 100.536L52.96 83.4082 20.3052 100.647 26.4854 64.2422 0 38.5117 36.5332 33.1406 52.8188 0 69.2173 33.0854 105.768 38.333 79.3696 64.1523 85.6743 100.536Z" >
+        <fill>
+          <SolidColor color="#ffdf40"/>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

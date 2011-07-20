@@ -4,18 +4,18 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import views.showcases.PopOverShowcase;
-			import views.showcases.RatingsShowcase;
+			import views.showcases.PopoverShowcase;
+			import views.showcases.RatingShowcase;
 			import views.showcases.ToastMessageShowcase;
 			
 			protected function buttonPopOver_clickHandler(event:MouseEvent):void
 			{
-				navigator.pushView(PopOverShowcase);
+				navigator.pushView(PopoverShowcase);
 			}
 			
 			protected function buttonRatings_clickHandler(event:MouseEvent):void
 			{
-				navigator.pushView(RatingsShowcase);
+				navigator.pushView(RatingShowcase);
 			}
 			
 			protected function buttonToatMessage_clickHandler(event:MouseEvent):void
