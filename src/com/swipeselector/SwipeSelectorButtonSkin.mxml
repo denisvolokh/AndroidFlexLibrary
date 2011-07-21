@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" xmlns:swipeselector="com.swipeselector.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.Button")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="disabled" />
+		<s:State name="down" />
+		<s:State name="over" />
+		<s:State name="up" />
+	</s:states>
+	
+	<s:Rect left="0"
+			right="0"
+			top="0"
+			bottom="0"
+			minWidth="175"
+			minHeight="64"
+			radiusX="4"
+			radiusY="4">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#656668"
+								 color.down="#C91B1E"/>
+				<s:GradientEntry color="#454546"
+								 color.down="#A81B1F"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Rect left="1"
+			right="1"
+			top="1"
+			bottom="1"
+			radiusX="3"
+			radiusY="3">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#4D4E4E"
+								 color.down="#630C0D"/>
+				<s:GradientEntry color="#333132"
+								 color.down="#E11E26"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<swipeselector:LeftTriangle left="10"
+								verticalCenter="0"/>
+	<swipeselector:RightArrow right="10"
+							  verticalCenter="0"/>
+	
+	<s:Label id="labelDisplay"
+			 left="20"
+			 right="20"
+			 top="2"
+			 bottom="2"
+			 color="#FFFFFF"
+			 fontWeight="normal"
+			 horizontalCenter="0"
+			 maxDisplayedLines="1"
+			 mouseEnabled="false"
+			 textAlign="center"
+			 verticalAlign="middle"
+			 verticalCenter="1">
+	</s:Label>
+	
+</s:Skin>

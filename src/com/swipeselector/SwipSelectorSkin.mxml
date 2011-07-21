@@ -40,6 +40,7 @@
 
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			
 		]]>
 	</fx:Script>
@@ -47,94 +48,87 @@
 
 	<!-- states -->
 	<s:states>
-		<s:State name="up"/>
-		<s:State name="over"/>
-		<s:State name="down"/>
-		<s:State name="disabled"/>
+		<s:State name="normal" />
+		<s:State name="open" />
+		<s:State name="disabled" />
 	</s:states>
 
 	<s:PopUpAnchor id="popup"
-				   displayPopUp.down="true"
+				   displayPopUp.open="true"
 				   popUpPosition="above"
-				   x="{ this.x - this.width / 2 }">
-		<s:Group id="viewSelection"
-				 width="{ this.width * 2 }"
-				 height="{ this.height * 2 }">
-			<s:Rect id="background"
-					left="0"
-					right="0"
-					top="0"
-					bottom="5">
-				<s:fill>
-					<!---
-						 The color of the drop down's background fill.
-						 The default color is 0xFFFFFF.
-					-->
-					<s:SolidColor id="bgFill"
-								  color="0xFFFF00"/>
-				</s:fill>
+				   x="{ this.x - 20 }">
+		<s:Group id="dropDown"
+				 width="{ this.width + 40 }"
+				 height="{ this.height * 1.5 }">
+			
+			<s:RectangularDropShadow id="dropShadow" 
+									 blurX="20" 
+									 blurY="20" 
+									 alpha="0.45" 
+									 distance="7"
+									 angle="90" 
+									 color="#000000" 
+									 left="0" 
+									 top="0" 
+									 right="0" 
+									 bottom="0"/>
+			
+			<!-- border -->
+			<!--- @private -->
+			<s:Rect id="border" left="0" right="0" top="0" bottom="0">
 				<s:stroke>
-					<s:SolidColorStroke alpha=".1"
-										color="0x686868"
-										weight="1"/>
+					<!--- @private -->
+					<s:SolidColorStroke id="borderStroke" weight="1"/>
 				</s:stroke>
 			</s:Rect>
 			
-			<s:Label text="English"
-					 horizontalCenter="0"
-					 verticalCenter="0"
-					 fontSize="32"/>
-
-			<s:filters>
-				<s:DropShadowFilter color="0x000000"
-									blurX="20"
-									blurY="20"
-									distance="8"
-									angle="90"
-									alpha="0.30"/>
-			</s:filters>
+			<!-- fill -->
+			<!--- Defines the appearance of drop-down list's background fill. -->
+			<s:Rect id="background" left="1" right="1" top="1" bottom="1" >
+				<s:fill>
+					<!---
+					@private
+					The color of the drop down's background fill.
+					The default color is 0xFFFFFF.
+					-->
+					<s:SolidColor id="bgFill" color="0xFFFFFF" />
+				</s:fill>
+			</s:Rect>
+			
+			<!--- @private -->
+			<s:Scroller id="scroller" 
+						left="0" 
+						top="0" 
+						right="0" 
+						bottom="0" 
+						hasFocusableChildren="false" 
+						minViewportInset="1">
+				<!--- @copy spark.components.SkinnableDataContainer#dataGroup-->
+				<s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
+					<s:layout>
+						<s:HorizontalLayout horizontalAlign="center" verticalAlign="middle"/>
+					</s:layout>
+				</s:DataGroup>
+			</s:Scroller>
+			
+			<swipeselector:LeftTriangle left="10" verticalCenter="0"/>
+			
+			<swipeselector:RightArrow right="10" verticalCenter="0"/>
+			
 		</s:Group>
 	</s:PopUpAnchor>
 
-	<s:Rect left="0"
-			right="0"
-			top="0"
-			bottom="0"
-			minWidth="175"
-			minHeight="64"
-			radiusX="4"
-			radiusY="4">
-		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="#656668"
-								 color.down="#C91B1E"/>
-				<s:GradientEntry color="#454546"
-								 color.down="#A81B1F"/>
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
-
-	<s:Rect left="1"
-			right="1"
-			top="1"
-			bottom="1"
-			radiusX="3"
-			radiusY="3">
-		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="#4D4E4E"
-								 color.down="#630C0D"/>
-				<s:GradientEntry color="#333132"
-								 color.down="#E11E26"/>
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
-
-	<swipeselector:LeftTriangle left="10"
-								verticalCenter="0"/>
-	<swipeselector:RightArrow right="10"
-							  verticalCenter="0"/>
-
+	<!---  The default skin is DropDownListButtonSkin.
+	@copy spark.components.supportClasses.DropDownListBase#openButton
+	@see spark.skins.spark.DropDownListButtonSkin -->
+	<s:Button id="openButton" 
+			  left="0" 
+			  right="0" 
+			  top="0" 
+			  bottom="0" 
+			  focusEnabled="false"
+			  skinClass="com.swipeselector.SwipeSelectorButtonSkin"/>
+	
 	<!-- layer 8: text -->
 	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
 	<s:Label id="labelDisplay"
