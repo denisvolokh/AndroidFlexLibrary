@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"  viewHeight= "59" viewWidth= "61">
+	<Library>
+	</Library>
+
+	<Group d:userLabel="Layer_1" d:type="layer">
+		<Group d:userLabel="Group_1">
+			<Path winding="evenOdd" data="M 31 1 L 40 20 L 60 23 L 45 37 L 49 58 L 31 48 L 12 58 L 16 37 L 1 23 L 21 20 L 31 1 Z " blendMode="normal" alpha="1">
+				<fill>
+					<SolidColor color="#4b4b4b"/>
+				</fill>
+				<stroke>
+					<SolidColorStroke color="#cccccc" weight="1" caps="none"/>
+				</stroke>
+			</Path>
+			<filters>
+				<DropShadowFilter angle="86" color="#000000" distance="7" alpha="0.65" quality="2" blurX="5" blurY="5" inner="true"/>
+			</filters>
+		</Group>
+	</Group>
+</Graphic>
