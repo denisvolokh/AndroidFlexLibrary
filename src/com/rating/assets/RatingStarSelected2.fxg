@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:fc="http://ns.adobe.com/flashcatalyst/2009">
+	<Group d:userLabel="Layer_1" d:type="layer">
+		<Group d:userLabel="Group_1">
+			<Path winding="nonZero" data="M 91 0 L 122 52 L 181 66 L 141 111 L 146 172 L 91 148 L 35 171 L 40 111 L 1 66 L 60 52 L 91 0 Z " blendMode="normal" alpha="1">
+				<fill>
+					<LinearGradient x = "88" y = "9" scaleX = "158" rotation = "87">
+						<GradientEntry color="#ff8300" ratio="0.01" alpha="1"/>
+						<GradientEntry color="#ffd200" ratio="0.48" alpha="1"/>
+						<GradientEntry color="#ff5d00" ratio="0.99" alpha="1"/>
+					</LinearGradient>
+				</fill>
+			</Path>
+			<Group maskType='clip'>
+				<mask>
+					<Group>
+						<Path winding="nonZero" data="M 91 6 L 120 54 L 175 67 L 138 110 L 143 166 L 91 144 L 38 166 L 43 110 L 6 67 L 61 54 L 91 6 Z " blendMode="normal" alpha="1">
+						</Path>
+					</Group>
+				</mask>
+				<Group d:userLabel="Group_2">
+					<Group d:userLabel="Group_3">
+						<Group d:userLabel="Group_4">
+							<Path winding="nonZero" data="M -6 -19 L 185 -6 L 172 184 L -19 172 L -6 -19 Z " blendMode="normal" alpha="1">
+								<fill>
+									<RadialGradient x = "49" y = "46" scaleX = "174" scaleY = "174" rotation = "-176">
+										<GradientEntry color="#ffe600" ratio="0.01" alpha="1"/>
+										<GradientEntry color="#ff6500" ratio="0.99" alpha="1"/>
+									</RadialGradient>
+								</fill>
+							</Path>
+							<Path winding="nonZero" data="M 186 64 C 170 65 50 71 -15 168 C -15 168 -15 182 -15 182 L 177 185 C 177 185 186 64 186 64 Z " blendMode="normal" alpha="1">
+								<fill>
+									<LinearGradient x = "84" y = "74" scaleX = "110" rotation = "88">
+										<GradientEntry color="#ff5800" ratio="0.01" alpha="1"/>
+										<GradientEntry color="#ffae00" ratio="0.52" alpha="1"/>
+										<GradientEntry color="#ff5800" ratio="0.99" alpha="1"/>
+									</LinearGradient>
+								</fill>
+							</Path>
+						</Group>
+					</Group>
+				</Group>
+			</Group>
+			<Path winding="nonZero" data="M 91 5 L 120 54 L 176 67 L 138 110 L 143 167 L 91 144 L 38 167 L 43 110 L 6 67 L 61 54 L 91 5 Z " blendMode="normal" alpha="1">
+				<stroke>
+					<SolidColorStroke color="#ff6800" weight="1" caps="none"/>
+				</stroke>
+			</Path>
+			<Path winding="nonZero" data="M 120 54 L 176 67 L 138 110 L 143 167 L 91 144 L 38 167 L 38 167" blendMode="normal" alpha="1">
+				<stroke>
+					<SolidColorStroke color="#ffc500" weight="1" caps="none"/>
+				</stroke>
+			</Path>
+		</Group>
+	</Group>
+</Graphic>

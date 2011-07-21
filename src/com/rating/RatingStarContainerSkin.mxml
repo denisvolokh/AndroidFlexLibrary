@@ -13,6 +13,6 @@
 		<s:State name="disabled" />
 	</s:states>
 	
-	<assets:RatingStar includeIn="normal"/>
-	<assets:RatingStarSelected includeIn="selected"/>
+	<assets:RatingStar2 includeIn="normal" width="100" height="100"/>
+	<assets:RatingStarSelected2 includeIn="selected" width="100" height="100"/>
 </s:Skin>

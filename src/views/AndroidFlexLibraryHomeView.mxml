@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Home">
-	
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Home"
+		xmlns:swipeselector="com.swipeselector.*">
+
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
 			import views.showcases.PopoverShowcase;
 			import views.showcases.RatingShowcase;
 			import views.showcases.ToastMessageShowcase;
-			
+
 			protected function buttonPopOver_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(PopoverShowcase);
 			}
-			
+
 			protected function buttonRatings_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(RatingShowcase);
 			}
-			
+
 			protected function buttonToatMessage_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(ToastMessageShowcase);
 			}
-			
 		]]>
 	</fx:Script>
-	
+
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	
-	<s:VGroup width="100%" height="100%"
+
+	<s:VGroup width="100%"
+			  height="100%"
 			  verticalAlign="middle"
 			  horizontalAlign="center">
-		<s:Button id="buttonPopOver" 
+		<s:Button id="buttonPopOver"
 				  label="PopOver component"
 				  width="70%"
 				  click="buttonPopOver_clickHandler(event)"/>
 		<s:Button id="buttonToatMessage"
-			width="70%"
+				  width="70%"
 				  label="Toast Message component"
 				  click="buttonToatMessage_clickHandler(event)"/>
-		<s:Button id="buttonRatings" 
+		<s:Button id="buttonRatings"
 				  width="70%"
 				  label="Rating component"
 				  click="buttonRatings_clickHandler(event)"/>
+		<swipeselector:SwipSelector label="Swipe"
+									skinClass="com.swipeselector.SwipSelectorSkin"
+									dataProvider="{ new ArrayCollection(['English', 'Spanish', 'Russian']) }"/>
 	</s:VGroup>
-	
+
 </s:View>

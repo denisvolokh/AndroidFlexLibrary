@@ -1,8 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark">
-	<!-- host component -->
+
+<!--
+
+	 ADOBE SYSTEMS INCORPORATED
+	 Copyright 2008 Adobe Systems Incorporated
+	 All Rights Reserved.
+
+	 NOTICE: Adobe permits you to use, modify, and distribute this file
+	 in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the Spark Button component.
+
+	 @see spark.components.Button
+
+	 @langversion 3.0
+	 @playerversion Flash 10
+	 @playerversion AIR 1.5
+	 @productversion Flex 4
+-->
+<s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+				   xmlns:css="css.*"
+				   xmlns:swipeselector="com.swipeselector.*"
+				   minWidth="21"
+				   minHeight="21"
+				   alpha.disabled="0.5">
+
 	<fx:Metadata>
+		<![CDATA[ 
+		/** 
+		* @copy spark.skins.spark.ApplicationSkin#hostComponent
+		*/
 		[HostComponent("com.swipeselector.SwipSelector")]
+		]]>
 	</fx:Metadata>
-</s:Skin>
+
+	<fx:Script>
+		<![CDATA[
+			
+		]]>
+	</fx:Script>
+
+
+	<!-- states -->
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+
+	<s:PopUpAnchor id="popup"
+				   displayPopUp.down="true"
+				   popUpPosition="above"
+				   x="{ this.x - this.width / 2 }">
+		<s:Group id="viewSelection"
+				 width="{ this.width * 2 }"
+				 height="{ this.height * 2 }">
+			<s:Rect id="background"
+					left="0"
+					right="0"
+					top="0"
+					bottom="5">
+				<s:fill>
+					<!---
+						 The color of the drop down's background fill.
+						 The default color is 0xFFFFFF.
+					-->
+					<s:SolidColor id="bgFill"
+								  color="0xFFFF00"/>
+				</s:fill>
+				<s:stroke>
+					<s:SolidColorStroke alpha=".1"
+										color="0x686868"
+										weight="1"/>
+				</s:stroke>
+			</s:Rect>
+			
+			<s:Label text="English"
+					 horizontalCenter="0"
+					 verticalCenter="0"
+					 fontSize="32"/>
+
+			<s:filters>
+				<s:DropShadowFilter color="0x000000"
+									blurX="20"
+									blurY="20"
+									distance="8"
+									angle="90"
+									alpha="0.30"/>
+			</s:filters>
+		</s:Group>
+	</s:PopUpAnchor>
+
+	<s:Rect left="0"
+			right="0"
+			top="0"
+			bottom="0"
+			minWidth="175"
+			minHeight="64"
+			radiusX="4"
+			radiusY="4">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#656668"
+								 color.down="#C91B1E"/>
+				<s:GradientEntry color="#454546"
+								 color.down="#A81B1F"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+
+	<s:Rect left="1"
+			right="1"
+			top="1"
+			bottom="1"
+			radiusX="3"
+			radiusY="3">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#4D4E4E"
+								 color.down="#630C0D"/>
+				<s:GradientEntry color="#333132"
+								 color.down="#E11E26"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+
+	<swipeselector:LeftTriangle left="10"
+								verticalCenter="0"/>
+	<swipeselector:RightArrow right="10"
+							  verticalCenter="0"/>
+
+	<!-- layer 8: text -->
+	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
+	<s:Label id="labelDisplay"
+			 left="20"
+			 right="20"
+			 top="2"
+			 bottom="2"
+			 color="#FFFFFF"
+			 fontWeight="normal"
+			 horizontalCenter="0"
+			 maxDisplayedLines="1"
+			 mouseEnabled="false"
+			 textAlign="center"
+			 verticalAlign="middle"
+			 verticalCenter="1">
+	</s:Label>
+
+</s:SparkButtonSkin>
