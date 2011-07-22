@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:LabelItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+					 xmlns:s="library://ns.adobe.com/flex/spark"
+					 paddingLeft="45" 
+					 paddingRight="45"
+					 color="#FFFFFF">
+	<fx:Script>
+		<![CDATA[
+			
+			override public function set selected(value:Boolean):void
+			{
+				super.selected = value;
+				
+				if (value)
+				{
+					this.setStyle("textDecoration", "underline")					
+				}
+				else
+				{
+					this.setStyle("textDecoration", "none")
+				}
+			}
+			
+			override protected function commitProperties():void
+			{
+				super.commitProperties();
+			}
+			
+			override protected function drawBackground(w:Number, h:Number):void
+			{
+				
+			}
+			
+		]]>
+	</fx:Script>
+</s:LabelItemRenderer>

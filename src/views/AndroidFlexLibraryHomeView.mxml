@@ -6,7 +6,11 @@
 
 	<fx:Script>
 		<![CDATA[
+			import com.toast.ToastMessage;
+			
 			import mx.collections.ArrayCollection;
+			
+			import spark.events.IndexChangeEvent;
 			
 			import views.showcases.PopoverShowcase;
 			import views.showcases.RatingShowcase;
@@ -26,6 +30,12 @@
 			{
 				navigator.pushView(ToastMessageShowcase);
 			}
+			
+			protected function swipselector1_changeHandler(event:IndexChangeEvent):void
+			{
+				ToastMessage.showToast("New selection: " + String(swipeSelector.selectedItem), this, 2, ToastMessage.PLACEMENT_TOP);
+			}
+			
 		]]>
 	</fx:Script>
 
@@ -49,9 +59,11 @@
 				  width="70%"
 				  label="Rating component"
 				  click="buttonRatings_clickHandler(event)"/>
-		<swipeselector:SwipSelector selectedIndex="0"
+		<swipeselector:SwipSelector id="swipeSelector"
+									selectedIndex="1"
 									skinClass="com.swipeselector.SwipSelectorSkin"
-									dataProvider="{ new ArrayCollection(['English', 'Spanish', 'Russian']) }"/>
+									dataProvider="{ new ArrayCollection(['English', 'Spanish', 'Russian']) }"
+									change="swipselector1_changeHandler(event)"/>
 	</s:VGroup>
 
 </s:View>
