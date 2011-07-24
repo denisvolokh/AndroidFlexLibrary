@@ -17,15 +17,20 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.popover.ButtonsContent;
 			import com.popover.ListContent;
+			import com.popover.ListContent2;
 			import com.popover.Popover;
-			import com.popover.RadioGroupContent;
 			
 			import spark.components.Label;
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				var popover : Popover = new Popover();
-				var customContent : RadioGroupContent = new RadioGroupContent();
+				var customContent : ListContent2 = new ListContent2();
+				customContent.addEventListener("changed", function(event : Event):void
+				{
+					popover.hide();
+				});
 				popover.show(this, event.currentTarget as Button, customContent);
 			}
 			
@@ -33,13 +38,17 @@
 			{
 				var popover : Popover = new Popover();
 				var customContent : ListContent = new ListContent();
+				customContent.addEventListener("changed", function(event : Event):void
+				{
+					popover.hide();
+				});
 				popover.show(this, event.currentTarget as Button, customContent);
 			}
 			
 			protected function button3_clickHandler(event:MouseEvent):void
 			{
 				var popover : Popover = new Popover();
-				var customContent : ListContent = new ListContent();
+				var customContent : ButtonsContent = new ButtonsContent();
 				popover.show(this, event.currentTarget as Button, customContent);
 			}
 			

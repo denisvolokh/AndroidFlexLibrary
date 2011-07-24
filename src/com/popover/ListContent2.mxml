@@ -15,7 +15,7 @@
 			
 			protected function list1_changeHandler(event:IndexChangeEvent):void
 			{
-				dispatchEvent(new Event("changed"));
+				dispatchEvent(new Event("changed"));				
 			}
 			
 		]]>
@@ -26,8 +26,9 @@
 		</fx:Component>
 	</s:itemRenderer>
 	<s:ArrayCollection>
-		<fx:Object name="Russia" url="com/popover/data/ru.png"/>
-		<fx:Object name="Denmark" url="com/popover/data/dm.png"/>
-		<fx:Object name="Great Britain" url="com/popover/data/uk.png"/>
+		<fx:Object name="Facebook" url="com/popover/data/facebook.png"/>
+		<fx:Object name="Twitter" url="com/popover/data/twitter.png"/>
+		<fx:Object name="Flickr" url="com/popover/data/flickr.png"/>
+		<fx:Object name="Buzz" url="com/popover/data/buzz.png"/>
 	</s:ArrayCollection>
 </s:List>

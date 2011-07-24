@@ -144,6 +144,10 @@
 							  top="5"
 							  left="5"
 							  right="5"
+							  paddingBottom="5"
+							  paddingLeft="5"
+							  paddingRight="5"
+							  paddingTop="5"
 							  verticalAlign="middle"
 							  horizontalAlign="center"/>
 				</s:Group>

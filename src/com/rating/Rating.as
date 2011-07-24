@@ -53,10 +53,10 @@ package com.rating
 
 		public function set currentValue(value:Number):void
 		{
-			if (_currentValue == value - 1)
+			if (_currentValue == value)
 				return;
 				
-			_currentValue = value - 1;
+			_currentValue = value;
 			
 			currentValueChanged = true;
 			invalidateProperties();
@@ -99,18 +99,10 @@ package com.rating
 				currentValueChanged = false;
 				
 				setupCurrentValue(_currentValue);
+				invalidateDisplayList();
+				
 				dispatchEvent(new Event("currentValueChanged"));
-				invalidateDisplayList();
 			}
-			
-			/*if (ratingIconStyleNameChanged)
-			{
-				ratingIconStyleNameChanged = false;
-				
-				setupRatingIcons();
-				
-				invalidateDisplayList();
-			}*/
 		}
 
 		override protected function partAdded(partName:String, instance:Object):void
@@ -161,14 +153,15 @@ package com.rating
 		{
 			var icon : RatingStarContainer = RatingStarContainer(event.currentTarget);
 			var index : int = iconsHolder.getElementIndex(icon);
-			_currentValue = index;
 			
 			if (index == 0)
 			{
-				_currentValue = (icon.selected)? -1:index; 
+				currentValue = (icon.selected)? -1:index; 
 			}
-						
-			setupCurrentValue(_currentValue);
+			else
+			{
+				currentValue = index;
+			}
 		}
 	}
 }

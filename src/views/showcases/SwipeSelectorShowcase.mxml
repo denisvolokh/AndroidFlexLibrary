@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="SwipeSelectorShowcase">
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Swipe Selector" xmlns:swipeselector="com.swipeselector.*">
 	<s:layout>
-		<s:VerticalLayout/>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
 	</s:layout>
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="{ navigator.popToFirstView() }"/>
+	</s:navigationContent>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.toast.ToastMessage;
+			
+			import mx.collections.ArrayCollection;
+			
+			import spark.events.IndexChangeEvent;
+			
+			protected function swipselector1_changeHandler(event:IndexChangeEvent):void
+			{
+				ToastMessage.showToast("New selection: " + String(swipeSelector.selectedItem), this, 2, ToastMessage.PLACEMENT_TOP);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<swipeselector:SwipSelector id="swipeSelector"
+								selectedIndex="1"
+								skinClass="com.swipeselector.SwipSelectorSkin"
+								dataProvider="{ new ArrayCollection(['English', 'Spanish', 'Russian']) }"
+								change="swipselector1_changeHandler(event)"/>
 	
 </s:View>

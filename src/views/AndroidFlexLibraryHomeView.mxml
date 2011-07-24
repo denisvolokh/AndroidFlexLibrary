@@ -14,6 +14,7 @@
 			
 			import views.showcases.PopoverShowcase;
 			import views.showcases.RatingShowcase;
+			import views.showcases.SwipeSelectorShowcase;
 			import views.showcases.ToastMessageShowcase;
 
 			protected function buttonPopOver_clickHandler(event:MouseEvent):void
@@ -31,9 +32,9 @@
 				navigator.pushView(ToastMessageShowcase);
 			}
 			
-			protected function swipselector1_changeHandler(event:IndexChangeEvent):void
+			protected function buttonSwipeSelector_clickHandler(event:MouseEvent):void
 			{
-				ToastMessage.showToast("New selection: " + String(swipeSelector.selectedItem), this, 2, ToastMessage.PLACEMENT_TOP);
+				navigator.pushView(SwipeSelectorShowcase);
 			}
 			
 		]]>
@@ -48,22 +49,21 @@
 			  verticalAlign="middle"
 			  horizontalAlign="center">
 		<s:Button id="buttonPopOver"
-				  label="PopOver component"
-				  width="70%"
+				  label="Popover"
+				  width="50%"
 				  click="buttonPopOver_clickHandler(event)"/>
 		<s:Button id="buttonToatMessage"
-				  width="70%"
-				  label="Toast Message component"
+				  width="50%"
+				  label="Toast"
 				  click="buttonToatMessage_clickHandler(event)"/>
 		<s:Button id="buttonRatings"
-				  width="70%"
-				  label="Rating component"
+				  width="50%"
+				  label="Rating"
 				  click="buttonRatings_clickHandler(event)"/>
-		<swipeselector:SwipSelector id="swipeSelector"
-									selectedIndex="1"
-									skinClass="com.swipeselector.SwipSelectorSkin"
-									dataProvider="{ new ArrayCollection(['English', 'Spanish', 'Russian']) }"
-									change="swipselector1_changeHandler(event)"/>
+		<s:Button id="buttonSwipeSelector"
+				  width="50%"
+				  label="Swipe selector"
+				  click="buttonSwipeSelector_clickHandler(event)"/>
 	</s:VGroup>
 
 </s:View>
