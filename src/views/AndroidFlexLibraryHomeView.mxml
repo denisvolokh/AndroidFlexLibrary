@@ -2,7 +2,7 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		title="Home"
-		xmlns:swipeselector="com.swipeselector.*">
+		xmlns:swipeselector="com.swipeselector.*" xmlns:progress="com.progress.*">
 
 	<fx:Script>
 		<![CDATA[
@@ -13,6 +13,7 @@
 			import spark.events.IndexChangeEvent;
 			
 			import views.showcases.PopoverShowcase;
+			import views.showcases.ProgressShowcase;
 			import views.showcases.RatingShowcase;
 			import views.showcases.SwipeSelectorShowcase;
 			import views.showcases.ToastMessageShowcase;
@@ -35,6 +36,11 @@
 			protected function buttonSwipeSelector_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(SwipeSelectorShowcase);
+			}
+			
+			protected function buttonProgress_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView(ProgressShowcase);
 			}
 			
 		]]>
@@ -64,6 +70,10 @@
 				  width="50%"
 				  label="Swipe selector"
 				  click="buttonSwipeSelector_clickHandler(event)"/>
+		<s:Button id="buttonProgress"
+				  width="50%"
+				  label="Progress"
+				  click="buttonProgress_clickHandler(event)"/>
 	</s:VGroup>
 
 </s:View>

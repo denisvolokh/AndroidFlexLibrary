@@ -121,28 +121,6 @@
 					 right="15"
 					 horizontalCenter="0" 
 					 verticalCenter="0"/>
-			
-			<!--<s:BorderContainer id="border"
-							   horizontalCenter="0"
-							   verticalCenter="0"
-							   cornerRadius="5"
-							   backgroundColor="#4b4b4b"
-							   borderStyle="solid"
-							   borderWeight="1"
-							   borderColor="#cccccc"
-							   minHeight="40">
-				<s:Label id="_messageLabel" 
-						 color="#FFFFFF" 
-						 fontSize="20"
-						 fontWeight="normal"
-						 textAlign="center"
-						 top="15"
-						 bottom="15"
-						 left="15"
-						 right="15"
-						 horizontalCenter="0" 
-						 verticalCenter="0"/>
-			</s:BorderContainer>-->
 		</s:Group>
 	</s:Group>
     

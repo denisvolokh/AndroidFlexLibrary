@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="Progress">
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.progress.Progress;
+			
+			import mx.managers.PopUpManager;
+			
+			import org.osmf.events.TimeEvent;
+			protected function buttonSimple_clickHandler(event:MouseEvent):void
+			{
+				Progress.showIndeterminateProgress(this);
+			}
+			
+			protected function buttonSimple2_clickHandler(event:MouseEvent):void
+			{
+				Progress.showIndeterminateProgressWithMessage(this, "Progress with Message");
+			}
+			
+			protected function buttonSimple3_clickHandler(event:MouseEvent):void
+			{
+				Progress.showIndeterminateProgressWithMessageAndDetails(this, "Progress with Message", "and Details");
+			}
+			
+			protected function buttonSimple4_clickHandler(event:MouseEvent):void
+			{
+				var initValue :Number = 10 * 3.6;
+				Progress.showDeterminateProgress(this, initValue);
+				
+				var timer : Timer = new Timer(5000);
+				timer.addEventListener(TimerEvent.TIMER, function(event : TimerEvent):void
+				{
+					initValue += (10 * 3.6);
+					trace(initValue);
+					Progress.updateProgress(initValue);
+					if (initValue >= 360 )
+					{
+						timer.stop();
+						Progress.hideProgress();
+					}
+				});
+				timer.start();
+			}
+			
+			protected function buttonSimple5_clickHandler(event:MouseEvent):void
+			{
+				var initValue :Number = 10 * 3.6;
+				Progress.showDeterminateProgressWithMessage(this, initValue, "Loading");
+				
+				var timer : Timer = new Timer(5000);
+				timer.addEventListener(TimerEvent.TIMER, function(event : TimerEvent):void
+				{
+					initValue += (10 * 3.6);
+					trace(initValue);
+					Progress.updateProgress(initValue);
+					if (initValue >= 360 )
+					{
+						timer.stop();
+						Progress.hideProgress();
+					}
+				});
+				timer.start();
+			}
+			
+			protected function buttonSimple6_clickHandler(event:MouseEvent):void
+			{
+				var initValue :Number = 10 * 3.6;
+				Progress.showDeterminateProgressWithMessageAndDetails(this, initValue, "Loading");
+				
+				var timer : Timer = new Timer(5000);
+				timer.addEventListener(TimerEvent.TIMER, function(event : TimerEvent):void
+				{
+					initValue += (10 * 3.6);
+					trace(initValue);
+					Progress.updateProgress(initValue);
+					if (initValue >= 180)
+					{
+						Progress.updateDetails("almost done...");
+					}
+					if (initValue >= 360 )
+					{
+						timer.stop();
+						Progress.hideProgress();
+					}
+				});
+				timer.start();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Button id="buttonSimple1" 
+			  label="Simple Indeterminate"
+			  width="70%"
+			  click="buttonSimple_clickHandler(event)"/>
+	
+	<s:Button id="buttonSimple2" 
+			  label="With Message"
+			  width="70%"
+			  click="buttonSimple2_clickHandler(event)"/>
+	
+	<s:Button id="buttonSimple3" 
+			  label="And Details"
+			  width="70%"
+			  click="buttonSimple3_clickHandler(event)"/>
+	
+	<s:Button id="buttonSimple4" 
+			  label="Determinate"
+			  width="70%"
+			  click="buttonSimple4_clickHandler(event)"/>
+	<s:Button id="buttonSimple5" 
+			  label="With Message"
+			  width="70%"
+			  click="buttonSimple5_clickHandler(event)"/>
+	<s:Button id="buttonSimple6" 
+			  label="And Details"
+			  width="70%"
+			  click="buttonSimple6_clickHandler(event)"/>
+	
+</s:View>
