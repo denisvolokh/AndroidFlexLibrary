@@ -2,7 +2,9 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		title="Home"
-		xmlns:swipeselector="com.swipeselector.*" xmlns:progress="com.progress.*">
+		skinClass="views.HomeViewSkin"
+		xmlns:swipeselector="com.swipeselector.*" 
+		xmlns:progress="com.progress.*">
 
 	<fx:Script>
 		<![CDATA[
@@ -57,6 +59,7 @@
 		<s:Button id="buttonPopOver"
 				  label="Popover"
 				  width="50%"
+				  skinClass="views.DashboardButtonSkin"
 				  click="buttonPopOver_clickHandler(event)"/>
 		<s:Button id="buttonToatMessage"
 				  width="50%"

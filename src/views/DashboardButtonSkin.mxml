@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.Button")]
+	</fx:Metadata>
+
+	<!-- states -->
+	<s:states>
+		<s:State name="disabled"/>
+		<s:State name="down"/>
+		<s:State name="over"/>
+		<s:State name="up"/>
+	</s:states>
+
+	<!-- SkinParts
+		 name=iconDisplay, type=spark.primitives.BitmapImage, required=false
+		 name=labelDisplay, type=spark.core.IDisplayText, required=false
+	-->
+
+	<s:Group left="0"
+			 right="0"
+			 top="0"
+			 bottom="0"
+			 minHeight="46"
+			 minWidth="168"
+			 scaleGridLeft="25"
+			 scaleGridRight="143"
+			 scaleGridTop="5"
+			 scaleGridBottom="41">
+		<s:Path winding="evenOdd"
+				data="M 0 23 C 0 10 10 0 23 0 C 23 0 146 0 146 0 C 158 0 168 10 168 23 C 168 23 168 24 168 24 C 168 36 158 46 146 46 C 146 46 23 46 23 46 C 10 46 0 36 0 24 C 0 24 0 23 0 23 Z "
+				blendMode="normal"
+				alpha="1">
+			<s:fill>
+				<s:LinearGradient x="79"
+								  y="44"
+								  scaleX="44"
+								  rotation="-90">
+					<s:GradientEntry color="#cccccc"
+									 ratio="0"
+									 alpha="1"/>
+					<s:GradientEntry color="#ffffff"
+									 ratio="0.99"
+									 alpha="1"/>
+				</s:LinearGradient>
+			</s:fill>
+			<s:stroke>
+				<s:SolidColorStroke color="#adadad"
+									weight="1"
+									caps="none"/>
+			</s:stroke>
+		</s:Path>
+		<s:filters>
+			<s:DropShadowFilter angle="90"
+								color="#999999"
+								distance="3"
+								alpha="0.5"
+								quality="2"
+								blurX="5"
+								blurY="5"/>
+		</s:filters>
+	</s:Group>
+
+	<s:Label id="labelDisplay"
+			 left="20"
+			 right="20"
+			 top="2"
+			 bottom="2"
+			 color="#4e4e4e"
+			 filters="{ [new DropShadowFilter(1, 120, 0x020202, .3, 0, 0, 1, 1, true), new DropShadowFilter(1, 1, 0xFFFFFF, .75, 0, 0) ] }"
+			 horizontalCenter="0"
+			 maxDisplayedLines="1"
+			 mouseEnabled="false"
+			 textAlign="center"
+			 verticalAlign="middle"
+			 verticalCenter="1">
+	</s:Label>
+
+</s:Skin>

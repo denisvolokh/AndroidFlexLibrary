@@ -11,6 +11,7 @@ package com.progress
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
 	import flash.events.StageOrientationEvent;
 	
 	import mx.events.FlexEvent;
@@ -46,6 +47,15 @@ package com.progress
 			super();
 			
 			setStyle("skinClass", ProgressSkin);
+			addEventListener(Event.ADDED_TO_STAGE, onAddedToStageHandler);
+		}
+		
+		private function onAddedToStageHandler(event : Event):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStageHandler);
+			
+			addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, onMouseDownOutsideHandler);			
+			stage.addEventListener(flash.events.StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChangedHandler);
 		}
 		
 		[SkinPart(required="true")]
@@ -127,7 +137,6 @@ package com.progress
 			PopUpManager.centerPopUp(_progress);
 			
 			_progress.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, _progress.onMouseDownOutsideHandler);
-			_progress.stage.addEventListener(flash.events.StageOrientationEvent.ORIENTATION_CHANGE, _progress.onOrientationChangedHandler);
 			
 			return _progress;
 		}
@@ -273,6 +282,7 @@ package com.progress
 				_progress.invalidateSkinState();
 				
 				_progress.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, _progress.onMouseDownOutsideHandler);
+				_progress.stage.removeEventListener(flash.events.StageOrientationEvent.ORIENTATION_CHANGE, _progress.onOrientationChangedHandler);
 				
 				_progress.close();
 				_progress = null;
@@ -286,7 +296,10 @@ package com.progress
 		
 		private function onOrientationChangedHandler(event : *):void
 		{
-			PopUpManager.centerPopUp(_progress);
+			if (_progress)
+			{
+				PopUpManager.centerPopUp(_progress);				
+			}
 		}
 		
 		override protected function commitProperties():void

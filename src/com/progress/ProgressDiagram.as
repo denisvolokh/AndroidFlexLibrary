@@ -59,7 +59,7 @@ package com.progress
 
 		public function set arc(value:Number):void
 		{
-			_arc = startAngle + value;
+			_arc = startAngle + value * 3.6;
 			
 			if (value == 0)
 			{
@@ -172,25 +172,25 @@ package com.progress
 			drawWedge(this, unscaledWidth / 2,unscaledHeight / 2, r, startAngle, _arc);
 		}
 		
-		protected function drawWedge(t:Sprite, x : Number, y : Number, radius : Number, bA : Number, eA : Number) 
+		protected function drawWedge(t:Sprite, x : Number, y : Number, radius : Number, bA : Number, eA : Number):void 
 		{
-			var degToRad = Math.PI/180;
+			var degToRad : Number = Math.PI/180;
 			if (eA < bA) eA += 360;
-			var r = radius;
-			var n= Math.ceil((eA-bA)/45);
-			var theta = ((eA-bA)/n)*degToRad;
-			var cr = radius/Math.cos(theta/2);
-			var angle = bA*degToRad;
-			var cangle = angle-theta/2;
+			var r : Number = radius;
+			var n : Number = Math.ceil((eA-bA)/45);
+			var theta : Number = ((eA-bA)/n)*degToRad;
+			var cr : Number = radius/Math.cos(theta/2);
+			var angle : Number = bA*degToRad;
+			var cangle : Number = angle-theta/2;
 			t.graphics.moveTo(x, y);
 			t.graphics.lineTo(x+r*Math.cos(angle), y+r*Math.sin(angle));
-			for (var i=0;i < n;i++)	{
+			for (var i:int=0;i < n;i++)	{
 				angle += theta;
 				cangle += theta;
-				var endX = r*Math.cos (angle);
-				var endY = r*Math.sin (angle);
-				var cX = cr*Math.cos (cangle);
-				var cY = cr*Math.sin (cangle);
+				var endX : Number = r*Math.cos (angle);
+				var endY : Number = r*Math.sin (angle);
+				var cX : Number = cr*Math.cos (cangle);
+				var cY : Number = cr*Math.sin (cangle);
 				t.graphics.curveTo(x+cX,y+cY, x+endX,y+endY);
 			}
 			t.graphics.lineTo(x, y);

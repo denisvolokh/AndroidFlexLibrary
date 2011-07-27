@@ -31,16 +31,16 @@
 			
 			protected function buttonSimple4_clickHandler(event:MouseEvent):void
 			{
-				var initValue :Number = 10 * 3.6;
+				var initValue :Number = 10;
 				Progress.showDeterminateProgress(this, initValue);
 				
-				var timer : Timer = new Timer(5000);
+				var timer : Timer = new Timer(1000);
 				timer.addEventListener(TimerEvent.TIMER, function(event : TimerEvent):void
 				{
-					initValue += (10 * 3.6);
+					initValue += 10;
 					trace(initValue);
 					Progress.updateProgress(initValue);
-					if (initValue >= 360 )
+					if (initValue >= 100 )
 					{
 						timer.stop();
 						Progress.hideProgress();
@@ -51,16 +51,16 @@
 			
 			protected function buttonSimple5_clickHandler(event:MouseEvent):void
 			{
-				var initValue :Number = 10 * 3.6;
+				var initValue :Number = 10;
 				Progress.showDeterminateProgressWithMessage(this, initValue, "Loading");
 				
-				var timer : Timer = new Timer(5000);
+				var timer : Timer = new Timer(1000);
 				timer.addEventListener(TimerEvent.TIMER, function(event : TimerEvent):void
 				{
-					initValue += (10 * 3.6);
+					initValue += 10;
 					trace(initValue);
 					Progress.updateProgress(initValue);
-					if (initValue >= 360 )
+					if (initValue >= 100 )
 					{
 						timer.stop();
 						Progress.hideProgress();
@@ -71,20 +71,20 @@
 			
 			protected function buttonSimple6_clickHandler(event:MouseEvent):void
 			{
-				var initValue :Number = 10 * 3.6;
+				var initValue :Number = 10;
 				Progress.showDeterminateProgressWithMessageAndDetails(this, initValue, "Loading");
 				
-				var timer : Timer = new Timer(5000);
+				var timer : Timer = new Timer(1000);
 				timer.addEventListener(TimerEvent.TIMER, function(event : TimerEvent):void
 				{
-					initValue += (10 * 3.6);
+					initValue += 10;
 					trace(initValue);
 					Progress.updateProgress(initValue);
-					if (initValue >= 180)
+					if (initValue >= 50)
 					{
 						Progress.updateDetails("almost done...");
 					}
-					if (initValue >= 360 )
+					if (initValue >= 100 )
 					{
 						timer.stop();
 						Progress.hideProgress();
