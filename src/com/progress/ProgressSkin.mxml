@@ -56,6 +56,7 @@
 		<s:State name="determinate"/>
 		<s:State name="determinateWithLabel"/>
 		<s:State name="determinateWithLabelAndDetails"/>
+		<s:State name="customView"/>
 		<s:State name="normal"/>
 		<s:State name="disabled"/>
 		<s:State name="closed" stateGroups="closedGroup"/>
@@ -148,10 +149,15 @@
 									  fillColor="0xFFFFFF"
 									  includeIn="closed,disabled,disabledAndClosed,determinate,determinateWithLabel,determinateWithLabelAndDetails,normal"/>
 			
-			<!--<s:BitmapImage id="bitmapCheckmark" source="assets/checkmark.png"/>-->
+			<s:HGroup id="customViewContainer" 
+					  horizontalAlign="center"
+					  verticalAlign="middle"
+					  includeIn="customView">
+				
+			</s:HGroup>
 			
 			<s:Label id="labelMessage"
-					 includeIn="indeterminateWithLabel,indeterminateWithLabelAndDetails,normal,closed,disabledAndClosed,disabled,determinateWithLabel,determinateWithLabelAndDetails"
+					 includeIn="customView,indeterminateWithLabel,indeterminateWithLabelAndDetails,normal,closed,disabledAndClosed,disabled,determinateWithLabel,determinateWithLabelAndDetails"
 					 color="#FFFFFF" fontSize="20" fontWeight="normal" text="Message"
 					 textAlign="center"/>
 			

@@ -15,7 +15,7 @@
 	</s:states>
 	
 	<fx:Metadata>
-		[HostComponent("views.AndroidFlexLibraryHomeView")]
+		[HostComponent("spark.components.View")]
 	</fx:Metadata> 
 	
 	<!-- fill -->

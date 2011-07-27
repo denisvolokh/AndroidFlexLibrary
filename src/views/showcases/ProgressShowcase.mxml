@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		title="Progress">
+		title="Progress"
+		skinClass="views.HomeViewSkin">
 	
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
 	</s:layout>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="{ navigator.popToFirstView() }"/>
+	</s:navigationContent>
 	
 	<fx:Script>
 		<![CDATA[
@@ -14,6 +19,9 @@
 			import mx.managers.PopUpManager;
 			
 			import org.osmf.events.TimeEvent;
+			
+			import spark.components.Group;
+			import spark.primitives.BitmapImage;
 			protected function buttonSimple_clickHandler(event:MouseEvent):void
 			{
 				Progress.showIndeterminateProgress(this);
@@ -93,12 +101,22 @@
 				timer.start();
 			}
 			
+			protected function buttonSimple7_clickHandler(event:MouseEvent):void
+			{
+				var bmi : BitmapImage = new BitmapImage();
+				bmi.source = "com/progress/assets/checkmark.png";
+				var grp : Group = new Group();
+				grp.addElement(bmi);
+				Progress.showProgressViewCustomView(this, grp, "Completed");
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<s:Button id="buttonSimple1" 
 			  label="Simple Indeterminate"
 			  width="70%"
+			  height="70"
 			  click="buttonSimple_clickHandler(event)"/>
 	
 	<s:Button id="buttonSimple2" 
@@ -123,5 +141,8 @@
 			  label="And Details"
 			  width="70%"
 			  click="buttonSimple6_clickHandler(event)"/>
-	
+	<s:Button id="buttonSimple7" 
+			  label="CustomView"
+			  width="70%"
+			  click="buttonSimple7_clickHandler(event)"/>
 </s:View>

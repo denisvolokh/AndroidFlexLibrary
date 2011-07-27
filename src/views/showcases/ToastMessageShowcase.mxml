@@ -2,7 +2,8 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
 		title="Toast" 
-		xmlns:toast="com.toast.*">
+		xmlns:toast="com.toast.*"
+		skinClass="views.HomeViewSkin">
 	
 	<fx:Script>
 		<![CDATA[

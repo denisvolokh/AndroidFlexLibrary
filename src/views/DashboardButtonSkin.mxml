@@ -56,10 +56,14 @@
 			<s:DropShadowFilter angle="90"
 								color="#999999"
 								distance="3"
+								distance.down="5"
 								alpha="0.5"
 								quality="2"
 								blurX="5"
-								blurY="5"/>
+								blurY="5"
+								blurX.down="15"
+								blurY.down="15"
+								inner.down="true"/>
 		</s:filters>
 	</s:Group>
 

@@ -55,7 +55,8 @@
 	<s:VGroup width="100%"
 			  height="100%"
 			  verticalAlign="middle"
-			  horizontalAlign="center">
+			  horizontalAlign="center"
+			  gap="10">
 		<s:Button id="buttonPopOver"
 				  label="Popover"
 				  width="50%"
@@ -64,18 +65,22 @@
 		<s:Button id="buttonToatMessage"
 				  width="50%"
 				  label="Toast"
+				  skinClass="views.DashboardButtonSkin"
 				  click="buttonToatMessage_clickHandler(event)"/>
 		<s:Button id="buttonRatings"
 				  width="50%"
 				  label="Rating"
+				  skinClass="views.DashboardButtonSkin"
 				  click="buttonRatings_clickHandler(event)"/>
 		<s:Button id="buttonSwipeSelector"
 				  width="50%"
 				  label="Swipe selector"
+				  skinClass="views.DashboardButtonSkin"
 				  click="buttonSwipeSelector_clickHandler(event)"/>
 		<s:Button id="buttonProgress"
 				  width="50%"
 				  label="Progress"
+				  skinClass="views.DashboardButtonSkin"
 				  click="buttonProgress_clickHandler(event)"/>
 	</s:VGroup>
 

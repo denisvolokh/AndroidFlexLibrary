@@ -14,11 +14,13 @@ package com.progress
 	import flash.events.Event;
 	import flash.events.StageOrientationEvent;
 	
+	import mx.core.UIComponent;
 	import mx.events.FlexEvent;
 	import mx.events.FlexMouseEvent;
 	import mx.managers.PopUpManager;
 	
 	import spark.components.BusyIndicator;
+	import spark.components.HGroup;
 	import spark.components.Label;
 	import spark.components.SkinnablePopUpContainer;
 	
@@ -39,6 +41,8 @@ package com.progress
 	[SkinState("determinateWithLabel")]
 	
 	[SkinState("determinateWithLabelAndDetails")]
+	
+	[SkinState("customView")]
 	
 	public class Progress extends SkinnablePopUpContainer
 	{
@@ -70,8 +74,28 @@ package com.progress
 		[SkinPart(required="true")]
 		public var progressDiagram:ProgressDiagram;
 		
+		[SkinPart(required="true")]
+		public var customViewContainer:HGroup;
+		
 		private static var _progress : Progress;
 		
+		private var _customView : UIComponent;
+		
+		private var customViewChanged : Boolean = false;
+		
+		public function get customView():UIComponent
+		{
+			return _customView;
+		}
+
+		public function set customView(value:UIComponent):void
+		{
+			_customView = value;
+			
+			customViewChanged = true;
+			invalidateProperties();
+		}
+
 		private var _determinateProgressValue : Number = 0;
 		
 		private var determinateProgressValueChanged : Boolean = false;
@@ -245,6 +269,27 @@ package com.progress
 			return _progress;
 		}
 		
+		public static function showProgressViewCustomView(parentView : DisplayObjectContainer, customView : UIComponent, messageText : String = ""):Progress
+		{
+			if (!_progress)
+			{
+				_progress = new Progress();
+			}
+			
+			_progress.isCustomView = true;
+			_progress.invalidateSkinState();
+			
+			_progress.customView = customView;
+			_progress.message = messageText;
+			
+			_progress.open(parentView, true);
+			PopUpManager.centerPopUp(_progress);
+			
+			_progress.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, _progress.onMouseDownOutsideHandler);
+			
+			return _progress;
+		}
+		
 		public static function updateProgress(progressValue : Number):void
 		{
 			if (!_progress)
@@ -279,6 +324,7 @@ package com.progress
 				_progress.isIndeterminate = false;
 				_progress.isIndeterminateWithLabel = false;
 				_progress.isIndeterminateWithLabelAndDetails = false;
+				_progress.isCustomView = false;
 				_progress.invalidateSkinState();
 				
 				_progress.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, _progress.onMouseDownOutsideHandler);
@@ -323,6 +369,12 @@ package com.progress
 				determinateProgressValueChanged = false;
 				progressDiagram.arc = determinateProgressValue;
 			}
+			
+			if (customViewChanged && customViewContainer)
+			{
+				customViewChanged = false;
+				customViewContainer.addElement(customView);
+			}
 		}
 		
 		override protected function getCurrentSkinState():String
@@ -357,6 +409,10 @@ package com.progress
 				return "determinateWithLabelAndDetails"
 			}
 			
+			if (isCustomView)
+			{
+				return "customView";
+			}
 			
 			return "normal";
 		}
@@ -372,5 +428,7 @@ package com.progress
 		private var isIndeterminateWithLabelAndDetails : Boolean = false;
 		
 		private var isDeterminateWithLabelAndDetails : Boolean = false;
+		
+		private var isCustomView : Boolean = false;
 	}
 }
