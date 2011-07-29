@@ -14,6 +14,7 @@
 			
 			import spark.events.IndexChangeEvent;
 			
+			import views.showcases.EntryPanelShowcase;
 			import views.showcases.PopoverShowcase;
 			import views.showcases.ProgressShowcase;
 			import views.showcases.RatingShowcase;
@@ -43,6 +44,11 @@
 			protected function buttonProgress_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(ProgressShowcase);
+			}
+			
+			protected function buttonEntryPanel_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView(EntryPanelShowcase);
 			}
 			
 		]]>
@@ -82,6 +88,11 @@
 				  label="Progress"
 				  skinClass="views.DashboardButtonSkin"
 				  click="buttonProgress_clickHandler(event)"/>
+		<s:Button id="buttonEntryPanel"
+				  width="50%"
+				  label="Entry Panel"
+				  skinClass="views.DashboardButtonSkin"
+				  click="buttonEntryPanel_clickHandler(event)"/>
 	</s:VGroup>
 
 </s:View>
