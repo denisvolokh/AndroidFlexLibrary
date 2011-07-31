@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		title="Entry Panel">
+		title="Entry Panel" xmlns:entrypanel="com.entrypanel.*"
+		actionBarVisible="true">
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center"
 						  verticalAlign="middle"/>
 	</s:layout>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import com.entrypanel.EntryPanel;
+			
+			import mx.managers.PopUpManager;
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				EntryPanel.show(this.navigator);
+				
+				//this.stage.needsSoftKeyboard = true;
+			}
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:Button label="Enter some gibberish"/>
+	<s:Button label="Enter some gibberish"
+			  click="button1_clickHandler(event)"/>
 	
 </s:View>
