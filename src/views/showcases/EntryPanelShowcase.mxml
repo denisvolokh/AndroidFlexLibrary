@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		title="Entry Panel" xmlns:entrypanel="com.entrypanel.*"
-		actionBarVisible="true">
+		title="Entry Panel" 
+		xmlns:entrypanel="com.entrypanel.*"
+		actionBarVisible="{ check.selected }">
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center"
 						  verticalAlign="middle"/>
@@ -12,14 +13,18 @@
 	<fx:Script>
 		<![CDATA[
 			import com.entrypanel.EntryPanel;
+			import com.toast.ToastMessage;
 			
 			import mx.managers.PopUpManager;
 			
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
-				EntryPanel.show(this.navigator);
-				
-				//this.stage.needsSoftKeyboard = true;
+				EntryPanel.show(this.navigator, "Enter your gibberish", "sadqeqdqdqwdqwq", entrypanelFunction);
+			}
+			
+			private function entrypanelFunction(msg : String):void
+			{
+				ToastMessage.showToast(msg, this);
 			}
 		]]>
 	</fx:Script>
@@ -28,6 +33,9 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
+	<s:CheckBox id="check"
+				label="Show/Hide action bar"
+				selected="true"/>
 	<s:Button label="Enter some gibberish"
 			  click="button1_clickHandler(event)"/>
 	

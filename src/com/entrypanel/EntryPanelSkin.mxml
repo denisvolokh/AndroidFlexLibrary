@@ -1,57 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
         xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled="0.5">
+	
 	<fx:Metadata>[HostComponent("com.entrypanel.EntryPanel")]</fx:Metadata>
-    
-    <fx:Script fb:purpose="styling">
-        <![CDATA[         
-            /**
-             *  @private
-             */
-            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
-            {
-                // Push backgroundColor and backgroundAlpha directly.
-                // Handle undefined backgroundColor by hiding the background object.
-                /* if (isNaN(getStyle("backgroundColor")))
-                {
-                    background.visible = false;
-                }
-                else
-                {
-                    background.visible = true;
-                    bgFill.color = getStyle("backgroundColor");
-                    bgFill.alpha = getStyle("backgroundAlpha");
-                } */
-                
-                super.updateDisplayList(unscaledWidth, unscaledHeight);
-            }
-        ]]>        
-    </fx:Script>
     
     <s:states>
         <s:State name="normal"/>
         <s:State name="disabled"/>
         <s:State name="closed"/>
     </s:states>
-    
-    <!-- Transitions for open and close -->
-    <s:transitions>
-        <s:Transition fromState="closed" toState="normal" autoReverse="true">
-            <s:Fade duration="150" target="{chrome}"/>
-        </s:Transition>
-
-        <s:Transition fromState="disabledAndClosed" toState="disabled" autoReverse="true">
-            <s:Fade duration="150" target="{chrome}"/>
-        </s:Transition>
-        
-        <s:Transition fromState="normal" toState="closed" autoReverse="true">
-            <s:Fade duration="150" target="{chrome}"/>
-        </s:Transition>
-
-        <s:Transition fromState="disabled" toState="disabledAndClosed" autoReverse="true">
-            <s:Fade duration="150" target="{chrome}"/>
-        </s:Transition>
-    </s:transitions>
         
     <!--- Defines the background and content group used by this skin. -->
     <s:Group id="chrome" left="0" right="0" top="0" bottom="0">
@@ -67,10 +24,13 @@
 									alpha="0.30"/>
 			</s:filters>
 			<s:fill>
-				<s:SolidColor color="0x0000FF" alpha=".7"/>
+				<s:LinearGradient x = "114" y = "75" scaleX = "146" rotation = "-90">
+					<s:GradientEntry color="#333333" ratio="0" alpha="1"/>
+					<s:GradientEntry color="#999999" ratio="0.99" alpha="1"/>
+				</s:LinearGradient>
 			</s:fill>
 			<s:stroke>
-				<s:SolidColorStroke  weight="1" color="#cccccc" joints="bevel" alpha=".5"/>
+				<s:SolidColorStroke color="#adadad" weight="1" caps="none"/>
 			</s:stroke>
         </s:Rect>
         
@@ -82,11 +42,18 @@
         <!--- @copy spark.components.SkinnableContainer#contentGroup -->
         <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
             <s:layout>
-                <s:VerticalLayout/>
+                <s:BasicLayout/>
             </s:layout>
 			
-			<s:Label id="labelMessage" text="Enter text here:"/>
-			<s:TextInput id="inputEntry"/>
+			<s:Label id="labelMessage" 
+					 text="Enter text here:"
+					 horizontalCenter="0"
+					 top="20"
+					 color="#FFFFFF"/>
+			<s:TextInput id="inputEntry"
+						 bottom="15"
+						 right="20"
+						 left="20"/>
         </s:Group>
     </s:Group>
     

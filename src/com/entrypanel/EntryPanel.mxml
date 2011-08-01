@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 						   xmlns:s="library://ns.adobe.com/flex/spark" 
-						   width="100" height="50"
+						   width="100%" height="120"
 						   skinClass="com.entrypanel.EntryPanelSkin">
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Animate id="anim" 
+				   target="{ this }" 
+				   duration="300" 
+				   effectEnd="anim_effectEndHandler(event)">
+			<s:SimpleMotionPath property="y" 
+								valueFrom="-130" 
+								valueTo="-10" />	
+		</s:Animate>
+			
+			
 	</fx:Declarations>
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.core.mx_internal;
+			import mx.events.EffectEvent;
+			import mx.events.FlexEvent;
+			import mx.events.FlexMouseEvent;
+			
 			import spark.components.Label;
 			import spark.components.TextInput;
 			import spark.components.ViewNavigator;
@@ -21,46 +35,142 @@
 			
 			private static var _host : ViewNavigator;
 			
+			[Bindable]
 			private static var _entryPanel : EntryPanel;
 			
-			/* 
-				1. Support back button
+			private static var _callBack : Function;
 			
-			*/
+			private var _entryText : String;
 			
-			public static function show(host : ViewNavigator):EntryPanel
+			private var entryTextChanged : Boolean = false;
+			
+			public function get entryText():String
 			{
-				if (!_entryPanel)
+				return _entryText;
+			}
+			
+			public function set entryText(value:String):void
+			{
+				_entryText = value;
+				
+				entryTextChanged = true;
+				invalidateProperties();
+			}
+			
+			private var _title : String;
+			
+			private var titleChanged : Boolean = false;
+			
+			public function get title():String
+			{
+				return _title;
+			}
+
+			public function set title(value:String):void
+			{
+				_title = value;
+				
+				titleChanged = true;
+				invalidateProperties();
+			}
+			
+			public static function show(host : ViewNavigator, title : String = "", entryText : String = "", callBackFunction : Function = null):EntryPanel
+			{
+				if (_entryPanel)
 				{
-					_entryPanel = new EntryPanel();
+					return _entryPanel
+				}
+				else
+				{
+					_entryPanel = new EntryPanel();	
 				}
 				
 				_host = host;
+				_callBack = callBackFunction;
+				
+				_entryPanel.title = title;
+				_entryPanel.entryText = entryText;
+				
 				_host.addElement(_entryPanel);
-				_entryPanel.move(50, -10);
+				_entryPanel.move(0, -10);
 				
 				_entryPanel.inputEntry.needsSoftKeyboard = true;
 				_entryPanel.inputEntry.requestSoftKeyboard();
 				
-				_entryPanel.stage.addEventListener(flash.events.KeyboardEvent.KEY_UP, _entryPanel.onFocusInHandler)
-					
+				_entryPanel.stage.addEventListener(KeyboardEvent.KEY_UP, _entryPanel.onFocusInHandler);
+				_entryPanel.addEventListener(FocusEvent.FOCUS_OUT, _entryPanel.onFocusOutHandler); 
+				
+				_entryPanel.anim.play();
+				
 				return _entryPanel;
 			}
 			
-			private function onFocusInHandler(event : KeyboardEvent):void
+			protected function onFocusOutHandler(event : FocusEvent):void
+			{
+				hide();
+			}
+			
+			protected function onFocusInHandler(event : KeyboardEvent):void
 			{
 				if (event.keyCode == 13)
 				{
+					if (_callBack != null)
+					{
+						_callBack(_entryPanel.inputEntry.text);
+					}
 					hide();
+				}
+				
+				if (event.keyCode == Keyboard.BACK)
+				{
+					hide();	
 				}
 			}
 			
 			public static function hide():void
 			{
-				_host.removeElement(_entryPanel);
+				_entryPanel.stage.removeEventListener(KeyboardEvent.KEY_UP, _entryPanel.onFocusInHandler);
+				_entryPanel.removeEventListener(FocusEvent.FOCUS_OUT, _entryPanel.onFocusOutHandler);
+				_entryPanel.anim.play(null, true);
+			}
+			
+			override protected function commitProperties():void
+			{
+				super.commitProperties();
+				
+				if (titleChanged && labelMessage)
+				{
+					titleChanged = false;
+					
+					labelMessage.text = title;
+				}
+				
+				if (entryTextChanged && inputEntry)
+				{
+					entryTextChanged = true;
+					
+					inputEntry.text = entryText;
+					inputEntry.selectRange(entryText.length,entryText.length);
+				}
+			}
+			
+			/* override protected function getCurrentSkinState():String
+			{
+				return isReady ? "ready" : "normal";
+			} 
+			
+			private var isReady : Boolean = false; */
+			
+			protected function anim_effectEndHandler(event:EffectEvent):void
+			{
+				if (event.effectInstance.mx_internal::playReversed)
+				{
+					_host.removeElement(_entryPanel);
+					_entryPanel = null;	
+				}
 			}
 			
 		]]>
 	</fx:Script>
 	
-</s:SkinnablePopUpContainer>
+</s:SkinnableContainer>
