@@ -12,7 +12,7 @@
 				   effectEnd="anim_effectEndHandler(event)">
 			<s:SimpleMotionPath property="y" 
 								valueFrom="{ -(this.height - 10) }" 
-								valueTo="-10" />	
+								valueTo="-10"/>	
 		</s:Animate>
 			
 			

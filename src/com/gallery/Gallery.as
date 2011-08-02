@@ -6,9 +6,13 @@ package com.gallery
 	import mx.core.IVisualElement;
 	
 	import spark.components.BorderContainer;
+	import spark.components.Group;
+	import spark.components.SkinnableContainer;
+	import spark.effects.Animate;
+	import spark.layouts.BasicLayout;
 	
 	[DefaultProperty("content")]
-	public class Gallery extends BorderContainer
+	public class Gallery extends SkinnableContainer
 	{
 		private var _content : Array;
 		
@@ -18,11 +22,23 @@ package com.gallery
 		
 		private var _selectedChild : IVisualElement;
 		
+		private var _rightChild : IVisualElement;
+		
+		private var _leftChild : IVisualElement;
+		
+		private var prevStageX : Number = 0;
+		
+		private var animate : Animate;
+		
+		private var pagesContainer : Group;
+		
 		public function Gallery()
 		{
 			super();
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedOnStageHandler);
+			
+			setStyle("skinClass", GallerySkin);
 		}
 		
 		private function onAddedOnStageHandler(event : Event):void
@@ -36,16 +52,78 @@ package com.gallery
 		private function onMouseDownEventClick(event : MouseEvent):void
 		{
 			addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEventClick);
+			prevStageX = event.stageX;
 		}
 		
 		private function onMouseMoveEventClick(event : MouseEvent):void
 		{
-			_selectedChild.x += 10; 
+			var delta : Number = event.stageX - prevStageX;
+			prevStageX = event.stageX;
+			trace("delta: ", delta);
+			
+			if (delta < 0)
+			{
+				if (!_rightChild)
+				{
+					_rightChild = _content[2];
+					contentGroup.addElement(_rightChild);
+					_rightChild.width = this.width;
+					_rightChild.x = this.width;
+				}
+			}
+			else if (delta >= 0)
+			{
+				if (!_leftChild)
+				{
+					_leftChild = _content[0];
+					contentGroup.addElement(_leftChild);
+					_leftChild.width = this.width;
+					_leftChild.x = - this.width;
+					
+				}
+			}
+			
+			if (_leftChild)
+			{
+				_leftChild.x += delta;
+				trace("_leftChild.x: ", _leftChild.x);				
+			}
+			
+			if (_rightChild)
+			{
+				_rightChild.x += delta;
+				trace("_rightChild.x: ", _rightChild.x);
+			}
+			_selectedChild.x += delta;
+			
+			trace("x: ", _selectedChild.x);
 		}
 		
 		private function onMouseUpEventClick(event : MouseEvent):void
 		{
 			removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEventClick);
+			if (_selectedChild.x < -(this.width / 3))
+			{
+				this._pendingSelectedIndex = 2;
+				invalidateProperties();
+			}
+			else if (_selectedChild.x >= this.width / 3)
+			{
+				this._pendingSelectedIndex = 0;
+				invalidateProperties();
+			}
+			else
+			{
+				_selectedChild.x = 0;
+				if (_rightChild)
+				{
+					_rightChild.x = this.width;	
+				}
+				if (_leftChild)
+				{
+					_leftChild.x = - this.width;	
+				}	
+			}
 		}
 		
 		override protected function commitProperties():void
@@ -59,18 +137,36 @@ package com.gallery
 			}
 		}
 		
+		override protected function createChildren():void
+		{
+			super.createChildren();
+			
+		}
+		
 		private function updateSelectedIndex(index : int):void
 		{
 			var oldIndex : int = selectedIndex;
 			_selectedIndex = index;
 			
-			if (numElements > 0)
+			if (contentGroup.numElements > 0)
 			{
-				removeElementAt(0);
+				contentGroup.removeElementAt(0);
+				if (this._leftChild)
+				{
+					contentGroup.removeElement(this._leftChild)
+					this._leftChild = null;	
+				}
+				
+				if (this._rightChild)
+				{
+					contentGroup.removeElement(this._rightChild)
+					this._rightChild = null;	
+				}
 			}
 			
 			_selectedChild = _content[_selectedIndex];
-			addElement(_selectedChild);
+			contentGroup.addElement(_selectedChild);
+			_selectedChild.x = 0;
 			
 			//dispatch event
 		}

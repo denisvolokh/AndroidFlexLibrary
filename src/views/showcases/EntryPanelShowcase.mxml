@@ -10,7 +10,9 @@
 						  verticalAlign="middle"
 						  gap="20"/>
 	</s:layout>
-	
+	<s:navigationContent>
+		<s:Button label="Back" click="{ navigator.popToFirstView() }"/>
+	</s:navigationContent>
 	
 	<fx:Script>
 		<![CDATA[

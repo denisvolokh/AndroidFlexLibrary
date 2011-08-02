@@ -6,14 +6,16 @@
 		<s:VerticalLayout horizontalAlign="center"
 						  verticalAlign="middle"/>
 	</s:layout>
+	<s:navigationContent>
+		<s:Button label="Back" click="{ navigator.popToFirstView() }"/>
+	</s:navigationContent>
 	
-	<gallery:Gallery selectedIndex="0"
+	<gallery:Gallery selectedIndex="1"
 					 width="250"
 					 height="100">
-		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#FF0ff"/>
-		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#000ff"/>
-		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#00ff00"/>
-		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#ff0000"/>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#0000ff"/>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#FF0000"/>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#00FF00"/>
 	</gallery:Gallery>
 	
 </s:View>
