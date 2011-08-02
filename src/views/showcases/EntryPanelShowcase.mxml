@@ -38,5 +38,4 @@
 				selected="true"/>
 	<s:Button label="Enter some gibberish"
 			  click="button1_clickHandler(event)"/>
-	
 </s:View>
