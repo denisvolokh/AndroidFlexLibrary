@@ -39,8 +39,8 @@
 	<s:CheckBox id="check"
 				label="Show/Hide action bar"
 				selected="true"/>
+
 	<s:Button label="What is your name?"
 			  click="button1_clickHandler(event)"
 			  skinClass="views.DashboardButtonSkin"/>
-	
 </s:View>

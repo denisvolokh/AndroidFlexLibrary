@@ -15,6 +15,7 @@
 			import spark.events.IndexChangeEvent;
 			
 			import views.showcases.EntryPanelShowcase;
+			import views.showcases.GalleryShowcase;
 			import views.showcases.PopoverShowcase;
 			import views.showcases.ProgressShowcase;
 			import views.showcases.RatingShowcase;
@@ -49,6 +50,11 @@
 			protected function buttonEntryPanel_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(EntryPanelShowcase);
+			}
+			
+			protected function buttonGallery_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView(GalleryShowcase);
 			}
 			
 		]]>
@@ -93,6 +99,11 @@
 				  label="Entry Panel"
 				  skinClass="views.DashboardButtonSkin"
 				  click="buttonEntryPanel_clickHandler(event)"/>
+		<s:Button id="buttonGallery"
+				  width="50%"
+				  label="Gallery"
+				  skinClass="views.DashboardButtonSkin"
+				  click="buttonGallery_clickHandler(event)"/>
 	</s:VGroup>
 
 </s:View>
