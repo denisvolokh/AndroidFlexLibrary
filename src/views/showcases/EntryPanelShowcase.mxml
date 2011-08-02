@@ -3,10 +3,12 @@
 		xmlns:s="library://ns.adobe.com/flex/spark" 
 		title="Entry Panel" 
 		xmlns:entrypanel="com.entrypanel.*"
-		actionBarVisible="{ check.selected }">
+		actionBarVisible="{ check.selected }"
+		skinClass="views.HomeViewSkin">
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center"
-						  verticalAlign="middle"/>
+						  verticalAlign="middle"
+						  gap="20"/>
 	</s:layout>
 	
 	
@@ -19,13 +21,14 @@
 			
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
-				EntryPanel.show(this.navigator, "Enter your gibberish", "sadqeqdqdqwdqwq", entrypanelFunction);
+				EntryPanel.show(this.navigator, "Enter your name:", "", entrypanelFunction);
 			}
 			
 			private function entrypanelFunction(msg : String):void
 			{
-				ToastMessage.showToast(msg, this);
+				ToastMessage.showToast("Hello " + msg+"!", this);
 			}
+			
 		]]>
 	</fx:Script>
 	
@@ -36,7 +39,8 @@
 	<s:CheckBox id="check"
 				label="Show/Hide action bar"
 				selected="true"/>
-	<s:Button label="Enter some gibberish"
-			  click="button1_clickHandler(event)"/>
+	<s:Button label="What is your name?"
+			  click="button1_clickHandler(event)"
+			  skinClass="views.DashboardButtonSkin"/>
 	
 </s:View>

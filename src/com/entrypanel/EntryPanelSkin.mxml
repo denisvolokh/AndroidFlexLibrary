@@ -48,7 +48,7 @@
 			<s:Label id="labelMessage" 
 					 text="Enter text here:"
 					 horizontalCenter="0"
-					 top="20"
+					 top="30"
 					 color="#FFFFFF"/>
 			<s:TextInput id="inputEntry"
 						 bottom="15"
