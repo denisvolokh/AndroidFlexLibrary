@@ -11,8 +11,8 @@
 	</s:navigationContent>
 	
 	<gallery:Gallery selectedIndex="0"
-					 width="250"
-					 height="100">
+					 width="100%"
+					 height="100%">
 		<s:SkinnableContainer width="100%" height="100%" backgroundColor="black">
 			<s:layout>
 				<s:VerticalLayout horizontalAlign="center"
@@ -31,25 +31,29 @@
 		</s:SkinnableContainer>
 		<s:SkinnableContainer width="100%" height="100%" backgroundColor="green">
 			<s:layout>
-				<s:BasicLayout />
+				<s:VerticalLayout horizontalAlign="center"
+								  verticalAlign="middle"/>
 			</s:layout>
 			<s:Label text="GREEN"/>
 		</s:SkinnableContainer>
 		<s:SkinnableContainer width="100%" height="100%" backgroundColor="blue">
 			<s:layout>
-				<s:BasicLayout />
+				<s:VerticalLayout horizontalAlign="center"
+								  verticalAlign="middle"/>
 			</s:layout>
 			<s:Label text="BLUE"/>
 		</s:SkinnableContainer>
 		<s:SkinnableContainer width="100%" height="100%" backgroundColor="yellow">
 			<s:layout>
-				<s:BasicLayout />
+				<s:VerticalLayout horizontalAlign="center"
+								  verticalAlign="middle"/>
 			</s:layout>
 			<s:Label text="YELLOW"/>			
 		</s:SkinnableContainer>
 		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#FF0000">
 			<s:layout>
-				<s:BasicLayout />
+				<s:VerticalLayout horizontalAlign="center"
+								  verticalAlign="middle"/>
 			</s:layout>
 			<s:Label text="FF0000"/>
 		</s:SkinnableContainer>
