@@ -10,12 +10,49 @@
 		<s:Button label="Back" click="{ navigator.popToFirstView() }"/>
 	</s:navigationContent>
 	
-	<gallery:Gallery selectedIndex="1"
+	<gallery:Gallery selectedIndex="0"
 					 width="250"
 					 height="100">
-		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#0000ff"/>
-		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#FF0000"/>
-		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#00FF00"/>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="black">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center"
+								  verticalAlign="middle"/>
+			</s:layout>
+			<s:Label text="Black"/>
+			
+		</s:SkinnableContainer>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="red">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center"
+								  verticalAlign="middle"/>
+			</s:layout>
+			<s:Label text="RED"/>
+			<s:Button />
+		</s:SkinnableContainer>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="green">
+			<s:layout>
+				<s:BasicLayout />
+			</s:layout>
+			<s:Label text="GREEN"/>
+		</s:SkinnableContainer>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="blue">
+			<s:layout>
+				<s:BasicLayout />
+			</s:layout>
+			<s:Label text="BLUE"/>
+		</s:SkinnableContainer>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="yellow">
+			<s:layout>
+				<s:BasicLayout />
+			</s:layout>
+			<s:Label text="YELLOW"/>			
+		</s:SkinnableContainer>
+		<s:SkinnableContainer width="100%" height="100%" backgroundColor="#FF0000">
+			<s:layout>
+				<s:BasicLayout />
+			</s:layout>
+			<s:Label text="FF0000"/>
+		</s:SkinnableContainer>
 	</gallery:Gallery>
 	
 </s:View>

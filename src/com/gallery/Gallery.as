@@ -24,7 +24,11 @@ package com.gallery
 		
 		private var _rightChild : IVisualElement;
 		
+		private var _rightChildIndex : int = -1;
+		
 		private var _leftChild : IVisualElement;
+		
+		private var _leftChildIndex : int = -1;
 		
 		private var prevStageX : Number = 0;
 		
@@ -37,6 +41,7 @@ package com.gallery
 			super();
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedOnStageHandler);
+			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStageHandler);
 			
 			setStyle("skinClass", GallerySkin);
 		}
@@ -47,11 +52,19 @@ package com.gallery
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownEventClick);
 			addEventListener(MouseEvent.MOUSE_UP, onMouseUpEventClick);
+			stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUpEventClick);
+		}
+		
+		private function onRemovedFromStageHandler(event : Event):void
+		{
+			removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownEventClick);
+			removeEventListener(MouseEvent.MOUSE_UP, onMouseUpEventClick);
+			stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpEventClick);
 		}
 		
 		private function onMouseDownEventClick(event : MouseEvent):void
 		{
-			addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEventClick);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEventClick);
 			prevStageX = event.stageX;
 		}
 		
@@ -65,64 +78,68 @@ package com.gallery
 			{
 				if (!_rightChild)
 				{
-					_rightChild = _content[2];
-					contentGroup.addElement(_rightChild);
-					_rightChild.width = this.width;
-					_rightChild.x = this.width;
+					if ((selectedIndex + 1) <= content.length - 1)
+					{
+						_rightChildIndex = selectedIndex + 1
+						_rightChild = _content[_rightChildIndex];
+						contentGroup.addElement(_rightChild);
+						_rightChild.width = this.width;
+						_rightChild.x = _selectedChild.x + _rightChild.width;	
+					}
 				}
 			}
 			else if (delta >= 0)
 			{
 				if (!_leftChild)
 				{
-					_leftChild = _content[0];
-					contentGroup.addElement(_leftChild);
-					_leftChild.width = this.width;
-					_leftChild.x = - this.width;
-					
+					if (selectedIndex - 1 >= 0)
+					{
+						_leftChildIndex = selectedIndex - 1;
+						_leftChild = _content[_leftChildIndex];
+						contentGroup.addElement(_leftChild);
+						_leftChild.width = this.width;
+						_leftChild.x = _selectedChild.x - _leftChild.width;	
+					}
 				}
 			}
+			
+			_selectedChild.x += delta;
 			
 			if (_leftChild)
 			{
 				_leftChild.x += delta;
-				trace("_leftChild.x: ", _leftChild.x);				
 			}
 			
 			if (_rightChild)
 			{
 				_rightChild.x += delta;
-				trace("_rightChild.x: ", _rightChild.x);
 			}
-			_selectedChild.x += delta;
 			
 			trace("x: ", _selectedChild.x);
 		}
 		
 		private function onMouseUpEventClick(event : MouseEvent):void
 		{
-			removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEventClick);
+			stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEventClick);
 			if (_selectedChild.x < -(this.width / 3))
 			{
-				this._pendingSelectedIndex = 2;
+				this._pendingSelectedIndex = _rightChildIndex;
 				invalidateProperties();
 			}
 			else if (_selectedChild.x >= this.width / 3)
 			{
-				this._pendingSelectedIndex = 0;
+				this._pendingSelectedIndex = _leftChildIndex;
 				invalidateProperties();
 			}
-			else
+			
+			_selectedChild.x = 0;
+			if (_rightChild)
 			{
-				_selectedChild.x = 0;
-				if (_rightChild)
-				{
-					_rightChild.x = this.width;	
-				}
-				if (_leftChild)
-				{
-					_leftChild.x = - this.width;	
-				}	
+				_rightChild.x = this.width;	
+			}
+			if (_leftChild)
+			{
+				_leftChild.x = - this.width;	
 			}
 		}
 		
@@ -155,12 +172,14 @@ package com.gallery
 				{
 					contentGroup.removeElement(this._leftChild)
 					this._leftChild = null;	
+					_leftChildIndex = -1;
 				}
 				
 				if (this._rightChild)
 				{
 					contentGroup.removeElement(this._rightChild)
-					this._rightChild = null;	
+					this._rightChild = null;
+					_rightChildIndex = -1;
 				}
 			}
 			
