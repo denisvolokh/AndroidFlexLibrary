@@ -4,11 +4,14 @@ package com.gallery
 	import flash.events.MouseEvent;
 	
 	import mx.core.IVisualElement;
+	import mx.effects.Parallel;
 	
 	import spark.components.BorderContainer;
 	import spark.components.Group;
 	import spark.components.SkinnableContainer;
 	import spark.effects.Animate;
+	import spark.effects.animation.MotionPath;
+	import spark.effects.animation.SimpleMotionPath;
 	import spark.layouts.BasicLayout;
 	
 	[DefaultProperty("content")]
@@ -35,6 +38,16 @@ package com.gallery
 		private var animate : Animate;
 		
 		private var pagesContainer : Group;
+		
+		private var _p : Parallel = new Parallel();
+		
+		private var _selectedChildAnimation : Animate;
+		
+		private var _selectedChildMotion : SimpleMotionPath = new SimpleMotionPath("x");
+		
+		private var _rightChildMotion : SimpleMotionPath = new SimpleMotionPath("x");
+		
+		private var _leftChildMotion : SimpleMotionPath = new SimpleMotionPath("x");
 		
 		public function Gallery()
 		{
@@ -133,6 +146,7 @@ package com.gallery
 			}
 			
 			_selectedChild.x = 0;
+			
 			if (_rightChild)
 			{
 				_rightChild.x = this.width;	
@@ -186,6 +200,15 @@ package com.gallery
 			_selectedChild = _content[_selectedIndex];
 			contentGroup.addElement(_selectedChild);
 			_selectedChild.x = 0;
+			
+			/*_selectedChildAnimation = new Animate(_selectedChild);
+			_selectedChildAnimation.duration = 400;
+			var v:Vector.<MotionPath> = new Vector.<MotionPath>();
+			v.push(_selectedChildMotion);
+			_selectedChildAnimation.motionPaths = v;
+			_selectedChildMotion.valueFrom = _selectedChild.x;
+			_selectedChildMotion.valueTo = 0;			
+			_selectedChildAnimation.play();*/
 			
 			//dispatch event
 		}
