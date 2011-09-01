@@ -4,6 +4,10 @@ package com.gallery
 	import flash.events.MouseEvent;
 	
 	import mx.core.IVisualElement;
+	import mx.effects.Move;
+	import mx.effects.Parallel;
+	import mx.events.EffectEvent;
+	import mx.events.MoveEvent;
 	
 	import spark.components.BorderContainer;
 	import spark.components.Group;
@@ -31,8 +35,6 @@ package com.gallery
 		private var _leftChildIndex : int = -1;
 		
 		private var prevStageX : Number = 0;
-		
-		private var animate : Animate;
 		
 		private var pagesContainer : Group;
 		
@@ -72,7 +74,7 @@ package com.gallery
 		{
 			var delta : Number = event.stageX - prevStageX;
 			prevStageX = event.stageX;
-			trace("delta: ", delta);
+			//trace("delta: ", delta);
 			
 			if (delta < 0)
 			{
@@ -115,32 +117,93 @@ package com.gallery
 				_rightChild.x += delta;
 			}
 			
-			trace("x: ", _selectedChild.x);
+			//trace("x: ", _selectedChild.x);
 		}
+		
+		private var p : Parallel = new Parallel();
+		
+		private var _moveSelectedChild : Move;
+		
+		private var _moveRightChild : Move;
+		
+		private var _moveLeftdChild : Move;
+		
+		private var direction : int = 0;
 		
 		private function onMouseUpEventClick(event : MouseEvent):void
 		{
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEventClick);
 			if (_selectedChild.x < -(this.width / 3))
 			{
-				this._pendingSelectedIndex = _rightChildIndex;
-				invalidateProperties();
+				direction = -1;
+				//this._pendingSelectedIndex = _rightChildIndex;
+				//invalidateProperties();
 			}
 			else if (_selectedChild.x >= this.width / 3)
 			{
-				this._pendingSelectedIndex = _leftChildIndex;
-				invalidateProperties();
+				direction = 1;
+				//this._pendingSelectedIndex = _leftChildIndex;
+				//invalidateProperties();
 			}
 			
-			_selectedChild.x = 0;
+			if (!this._moveSelectedChild)
+			{
+				this._moveSelectedChild = new Move();
+				this._moveSelectedChild.duration = 300;
+				this._moveSelectedChild.addEventListener(EffectEvent.EFFECT_END, onMoveSelectedChildEnd);
+			}
+			this._moveSelectedChild.target = this._selectedChild;
+			this._moveSelectedChild.xFrom = this._selectedChild.x;
+			this._moveSelectedChild.xTo = this.width * direction;
+			trace(this._moveSelectedChild.xTo);
+			p.addChild(this._moveSelectedChild);
+			
+			//_selectedChild.x = 0;
 			if (_rightChild)
 			{
-				_rightChild.x = this.width;	
+				if (!this._moveRightChild)
+				{
+					this._moveRightChild = new Move();
+					this._moveRightChild.duration = 300;
+				}
+				
+				this._moveRightChild.target = this._rightChild;
+				this._moveRightChild.xFrom = this._rightChild.x;
+				this._moveRightChild.xTo = 0;
+				p.addChild(this._moveRightChild);
+				//_rightChild.x = this.width;	
 			}
 			if (_leftChild)
 			{
-				_leftChild.x = - this.width;	
+				if (!this._moveLeftdChild)
+				{
+					this._moveLeftdChild = new Move();
+					this._moveLeftdChild.duration = 300;
+				}
+				
+				this._moveLeftdChild.target = this._leftChild;
+				this._moveLeftdChild.xFrom = this._leftChild.x;
+				this._moveLeftdChild.xTo = (direction == -1)? -this.width:0;
+				p.addChild(this._moveLeftdChild);
+				//_leftChild.x = - this.width;	
 			}
+			
+			p.play();
+		}
+		
+		private function onMoveSelectedChildEnd(event : EffectEvent):void
+		{
+			if (direction == -1)
+			{
+				this._pendingSelectedIndex = _rightChildIndex;	
+			}
+			
+			if (direction == 1)
+			{
+				this._pendingSelectedIndex = this._leftChildIndex;
+			}
+			
+			invalidateProperties();
 		}
 		
 		override protected function commitProperties():void
