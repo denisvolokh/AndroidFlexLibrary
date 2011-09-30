@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		skinClass="views.HomeViewSkin"
+		addedToStage="addedToStageHandler(event)"
+		removedFromStage="removedFromStageHandler(event)"> 
+	
+	<fx:Script>
+		<![CDATA[
+			
+			//http://saturnboy.com/2010/06/drawer-component-flex-4/
+			//http://www.munkiihouse.com/?p=37
+			
+			public var frontView : *;
+			
+			protected function addedToStageHandler(event:Event):void
+			{
+				Multitouch.inputMode = MultitouchInputMode.GESTURE;
+				stage.addEventListener(TransformGestureEvent.GESTURE_PAN, onPanHandler);
+				addEventListener(MouseEvent.CLICK, onMouseClickHandler)
+			}
+			
+			private function onPanHandler(event : TransformGestureEvent):void
+			{
+				//event.
+			}
+			
+			private function onMouseClickHandler(event : *):void
+			{
+				effectShowDraw.play();
+			}
+			
+			protected function removedFromStageHandler(event:Event):void
+			{
+				stage.removeEventListener(TransformGestureEvent.GESTURE_PAN, onPanHandler);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Parallel id="effectShowDraw" duration="300">
+			<s:children>
+				<s:Move target="{ this }" yFrom="0" yTo="-100"/>
+				<s:Fade target="{ this }" alphaFrom="1" alphaTo=".5"/>
+			</s:children>
+		</s:Parallel>
+	</fx:Declarations>
+</s:View>

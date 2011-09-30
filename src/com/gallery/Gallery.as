@@ -145,7 +145,7 @@ package com.gallery
 				invalidateProperties();
 			}
 			
-			_selectedChild.x = 0;
+			//_selectedChild.x = 0;
 			
 			if (_rightChild)
 			{

@@ -3,17 +3,21 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		title="Home"
 		skinClass="views.HomeViewSkin"
+		creationComplete="view1_creationCompleteHandler(event)"
 		xmlns:swipeselector="com.swipeselector.*" 
 		xmlns:progress="com.progress.*">
 
 	<fx:Script>
 		<![CDATA[
+			import com.draw.DrawView;
 			import com.toast.ToastMessage;
 			
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
 			
 			import spark.events.IndexChangeEvent;
 			
+			import views.showcases.DrawViewShowcase;
 			import views.showcases.EntryPanelShowcase;
 			import views.showcases.GalleryShowcase;
 			import views.showcases.PopoverShowcase;
@@ -55,6 +59,16 @@
 			protected function buttonGallery_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(GalleryShowcase);
+			}
+			
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				
+			}
+			
+			protected function buttonDraw_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView(DrawViewShowcase);
 			}
 			
 		]]>
@@ -104,6 +118,11 @@
 				  label="Gallery"
 				  skinClass="views.DashboardButtonSkin"
 				  click="buttonGallery_clickHandler(event)"/>
+		<s:Button id="buttonDraw"
+				  width="50%"
+				  label="Draw"
+				  skinClass="views.DashboardButtonSkin"
+				  click="buttonDraw_clickHandler(event)"/>
 	</s:VGroup>
 
 </s:View>
