@@ -4,7 +4,7 @@ package com.gallery
 	import flash.events.MouseEvent;
 	
 	import mx.core.IVisualElement;
-
+	
 	import mx.effects.Move;
 	import mx.effects.Parallel;
 	import mx.events.EffectEvent;
@@ -160,9 +160,6 @@ package com.gallery
 				//invalidateProperties();
 			}
 			
-/*<<<<<<< HEAD
-			//_selectedChild.x = 0;
-=======
 			if (!this._moveSelectedChild)
 			{
 				this._moveSelectedChild = new Move();
@@ -174,7 +171,6 @@ package com.gallery
 			this._moveSelectedChild.xTo = this.width * direction;
 			trace(this._moveSelectedChild.xTo);
 			p.addChild(this._moveSelectedChild);
->>>>>>> 120d6fd40b863e2f27eddd3bc74830d60277e275*/
 			
 			if (_rightChild)
 			{
@@ -283,7 +279,7 @@ package com.gallery
 		{
 			return _selectedIndex;
 		}
-
+		
 		public function set selectedIndex(value:int):void
 		{
 			if (_selectedIndex == value) return;
@@ -298,13 +294,13 @@ package com.gallery
 		{
 			return _content;
 		}
-
+		
 		public function set content(value:Array):void
 		{
 			_content = value;
 			
 			selectedIndex = ( _pendingSelectedIndex == -1 )?0:_pendingSelectedIndex;
 		}
-
+		
 	}
 }

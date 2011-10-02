@@ -1,17 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark"
-		skinClass="views.HomeViewSkin"
 		addedToStage="addedToStageHandler(event)"
-		removedFromStage="removedFromStageHandler(event)"> 
+		removedFromStage="removedFromStageHandler(event)"
+		width="100%" height="100%"> 
+	
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.events.EffectEvent;
 			
 			//http://saturnboy.com/2010/06/drawer-component-flex-4/
 			//http://www.munkiihouse.com/?p=37
 			
-			public var frontView : *;
+			private var isDrawerOpen : Boolean = false
+			
+			private var _frontView : *;
+			
+			private var frontViewChanged : Boolean;
+			
+			public function set frontView(component : *):void
+			{
+				_frontView = component;
+				
+				frontViewChanged = true;
+			}
+			
+			public function get frontView():*
+			{
+				return _frontView;
+			}
+			
+			private var _drawView : *;
+			
+			private var drawViewChanged : Boolean = false;
+
+			public function get drawView():*
+			{
+				return _drawView;
+			}
+
+			public function set drawView(value:*):void
+			{
+				_drawView = value;
+				
+				drawViewChanged = true;
+			}
+			
+			override protected function commitProperties():void
+			{
+				super.commitProperties();
+				
+				if (frontViewChanged)
+				{
+					holderFrontView.addElement(frontView);
+					//fadeFrontView.target = frontView;
+					
+					frontViewChanged = false;
+				}
+				
+				if (drawViewChanged)
+				{
+					holderDrawerView.addElement(drawView);
+					
+					drawViewChanged = false;
+				}
+				
+			}
 			
 			protected function addedToStageHandler(event:Event):void
 			{
@@ -22,12 +80,37 @@
 			
 			private function onPanHandler(event : TransformGestureEvent):void
 			{
-				//event.
+				if (event.offsetY < 0)
+				{
+					//this.frontViewCover.visible = true;
+					//this.frontViewCover.includeInLayout = true;
+					effectShowDraw.play();
+					/* frontView.filters = [blurFrontView, shadowFrontView]; */
+				}
+				else
+				{
+					
+				}
 			}
 			
 			private function onMouseClickHandler(event : *):void
 			{
-				effectShowDraw.play();
+				if (!this.isDrawerOpen)
+				{
+					//this.frontViewCover.visible = true;
+					//this.frontViewCover.includeInLayout = true;
+					effectShowDraw.play();
+					/* holderFrontView.filters = [blurFrontView]; */
+					//holderFrontView.enabled = false;
+				}
+				else
+				{
+					//this.frontViewCover.visible = false;
+					//this.frontViewCover.includeInLayout = false;
+					effectShowDraw.play(null, true);
+					holderFrontView.filters = [];
+					holderFrontView.enabled = true;
+				}
 			}
 			
 			protected function removedFromStageHandler(event:Event):void
@@ -35,15 +118,64 @@
 				stage.removeEventListener(TransformGestureEvent.GESTURE_PAN, onPanHandler);
 			}
 			
+			protected function frontViewCover_mouseUpHandler(event:MouseEvent):void
+			{
+				//this.frontViewCover.visible = false;
+				//this.frontViewCover.includeInLayout = false;
+				//effectShowDraw.play(null, true);
+				//frontView.filters = [];
+			}
+			
+			protected function frontViewCover_mouseDownHandler(event:MouseEvent):void
+			{
+				event.stopImmediatePropagation();
+			}
+			
+			protected function effectShowDraw_effectEndHandler(event:EffectEvent):void
+			{
+				this.isDrawerOpen = !isDrawerOpen;				
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:Parallel id="effectShowDraw" duration="300">
+		<s:Parallel id="effectShowDraw" 
+					duration="300"
+					effectEnd="effectShowDraw_effectEndHandler(event)">
 			<s:children>
-				<s:Move target="{ this }" yFrom="0" yTo="-100"/>
-				<s:Fade target="{ this }" alphaFrom="1" alphaTo=".5"/>
+				<s:Move id="moveFrontView" 
+						yFrom="0" 
+						yTo="-80"
+						target="{ holderFrontView }"/>
+				<!--<s:Fade id="fadeFrontView" alphaFrom="1" alphaTo=".5"/>-->
 			</s:children>
 		</s:Parallel>
+		<!--<s:BlurFilter id="blurFrontView" blurX="5" blurY="5"/>
+		<s:DropShadowFilter id="shadowFrontView" angle="90"/>-->
 	</fx:Declarations>
+	
+	<s:Group id="holderDrawerView"
+			 width="100%"
+			 bottom="0"/>
+	
+	<s:Group id="holderFrontView"
+			 width="100%"
+			 height="100%"/>
+	
+	<!--<s:Group id="frontViewCover"
+			 width="100%" height="100%"
+			 visible="false"
+			 includeInLayout="false"
+			 mouseChildren="false"
+			 mouseEnabled="true"
+			 mouseDown="frontViewCover_mouseDownHandler(event)"
+			 mouseUp="frontViewCover_mouseUpHandler(event)">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:SolidColor color="#000000" alpha=".9"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>-->
+	
 </s:View>
