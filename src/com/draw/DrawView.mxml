@@ -11,18 +11,22 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.core.UIComponent;
 			import mx.events.EffectEvent;
+			
+			import spark.components.Image;
+			import spark.primitives.Rect;
 			
 			//http://saturnboy.com/2010/06/drawer-component-flex-4/
 			//http://www.munkiihouse.com/?p=37
 			
 			private var isDrawerOpen : Boolean = false
 			
-			private var _frontView : *;
+			private var _frontView : UIComponent;
 			
 			private var frontViewChanged : Boolean;
 			
-			public function set frontView(component : *):void
+			public function set frontView(component : UIComponent):void
 			{
 				_frontView = component;
 				
@@ -57,7 +61,7 @@
 				if (frontViewChanged)
 				{
 					holderFrontView.addElement(frontView);
-					//fadeFrontView.target = frontView;
+					effectShowDraw.targets = [holderFrontView, this.navigator.actionBar];
 					
 					frontViewChanged = false;
 				}
@@ -75,38 +79,32 @@
 			{
 				Multitouch.inputMode = MultitouchInputMode.GESTURE;
 				stage.addEventListener(TransformGestureEvent.GESTURE_PAN, onPanHandler);
-				addEventListener(MouseEvent.CLICK, onMouseClickHandler)
+				
+				addEventListener(MouseEvent.CLICK, onMouseClickHandler);
 			}
 			
 			private function onPanHandler(event : TransformGestureEvent):void
 			{
-				if (event.offsetY < 0)
+				/* if (event.offsetY < 0)
 				{
-					//this.frontViewCover.visible = true;
-					//this.frontViewCover.includeInLayout = true;
 					effectShowDraw.play();
-					/* frontView.filters = [blurFrontView, shadowFrontView]; */
 				}
 				else
 				{
 					
-				}
+				} */
 			}
 			
-			private function onMouseClickHandler(event : *):void
+			private function onMouseClickHandler(event : MouseEvent):void
 			{
 				if (!this.isDrawerOpen)
 				{
-					//this.frontViewCover.visible = true;
-					//this.frontViewCover.includeInLayout = true;
+					this.navigator.hideActionBar(true);
 					effectShowDraw.play();
-					/* holderFrontView.filters = [blurFrontView]; */
-					//holderFrontView.enabled = false;
 				}
 				else
 				{
-					//this.frontViewCover.visible = false;
-					//this.frontViewCover.includeInLayout = false;
+					this.navigator.showActionBar(true);
 					effectShowDraw.play(null, true);
 					holderFrontView.filters = [];
 					holderFrontView.enabled = true;
@@ -118,14 +116,6 @@
 				stage.removeEventListener(TransformGestureEvent.GESTURE_PAN, onPanHandler);
 			}
 			
-			protected function frontViewCover_mouseUpHandler(event:MouseEvent):void
-			{
-				//this.frontViewCover.visible = false;
-				//this.frontViewCover.includeInLayout = false;
-				//effectShowDraw.play(null, true);
-				//frontView.filters = [];
-			}
-			
 			protected function frontViewCover_mouseDownHandler(event:MouseEvent):void
 			{
 				event.stopImmediatePropagation();
@@ -133,7 +123,26 @@
 			
 			protected function effectShowDraw_effectEndHandler(event:EffectEvent):void
 			{
-				this.isDrawerOpen = !isDrawerOpen;				
+				this.isDrawerOpen = !isDrawerOpen;
+				
+				var uiBitmapData : BitmapData = new BitmapData(holderFrontView.width, holderFrontView.height);
+				uiBitmapData.draw(holderFrontView, new Matrix());
+				var coverImage : Image = new Image;
+				coverImage.source = new Bitmap(uiBitmapData);
+				holderFrontView.addElement(coverImage);
+				coverImage.addEventListener(MouseEvent.CLICK, onCoverImageClickHandler);
+				
+				removeEventListener(MouseEvent.CLICK, onMouseClickHandler);
+			}
+			
+			protected function onCoverImageClickHandler(event : MouseEvent):void
+			{
+				
+			}
+			
+			protected function effectShowDraw_effectStartHandler(event:EffectEvent):void
+			{
+				trace(this.navigator.actionBar.y)
 			}
 			
 		]]>
@@ -142,17 +151,16 @@
 	<fx:Declarations>
 		<s:Parallel id="effectShowDraw" 
 					duration="300"
+					suspendBackgroundProcessing="true"
+					effectStart="effectShowDraw_effectStartHandler(event)"
 					effectEnd="effectShowDraw_effectEndHandler(event)">
 			<s:children>
 				<s:Move id="moveFrontView" 
 						yFrom="0" 
-						yTo="-80"
-						target="{ holderFrontView }"/>
-				<!--<s:Fade id="fadeFrontView" alphaFrom="1" alphaTo=".5"/>-->
+						yTo="-80"/>
+				<s:Fade id="fadeFrontView" alphaFrom="1" alphaTo=".6"/>
 			</s:children>
 		</s:Parallel>
-		<!--<s:BlurFilter id="blurFrontView" blurX="5" blurY="5"/>
-		<s:DropShadowFilter id="shadowFrontView" angle="90"/>-->
 	</fx:Declarations>
 	
 	<s:Group id="holderDrawerView"
@@ -161,21 +169,12 @@
 	
 	<s:Group id="holderFrontView"
 			 width="100%"
-			 height="100%"/>
-	
-	<!--<s:Group id="frontViewCover"
-			 width="100%" height="100%"
-			 visible="false"
-			 includeInLayout="false"
-			 mouseChildren="false"
-			 mouseEnabled="true"
-			 mouseDown="frontViewCover_mouseDownHandler(event)"
-			 mouseUp="frontViewCover_mouseUpHandler(event)">
-		<s:Rect width="100%" height="100%">
-			<s:fill>
-				<s:SolidColor color="#000000" alpha=".9"/>
-			</s:fill>
-		</s:Rect>
-	</s:Group>-->
+			 height="100%">
+		<!--<s:layout>
+			<s:HorizontalLayout horizontalAlign="center"
+								verticalAlign="middle"/>
+		</s:layout>
+		<s:Button label="Yarrr!!!"/>-->
+	</s:Group>
 	
 </s:View>
