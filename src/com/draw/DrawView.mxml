@@ -15,18 +15,22 @@
 			import mx.events.EffectEvent;
 			
 			import spark.components.Image;
+			import spark.components.SkinnableContainer;
+			import spark.filters.DropShadowFilter;
 			import spark.primitives.Rect;
 			
 			//http://saturnboy.com/2010/06/drawer-component-flex-4/
 			//http://www.munkiihouse.com/?p=37
 			
+			public var hideActionBar : Boolean = false;
+			
 			private var isDrawerOpen : Boolean = false
 			
-			private var _frontView : UIComponent;
+			private var _frontView : SkinnableContainer;
 			
 			private var frontViewChanged : Boolean;
 			
-			public function set frontView(component : UIComponent):void
+			public function set frontView(component : SkinnableContainer):void
 			{
 				_frontView = component;
 				
@@ -38,20 +42,42 @@
 				return _frontView;
 			}
 			
-			private var _drawView : *;
+			private var _drawView : UIComponent;
 			
 			private var drawViewChanged : Boolean = false;
 
-			public function get drawView():*
+			public function get drawView():UIComponent
 			{
 				return _drawView;
 			}
 
-			public function set drawView(value:*):void
+			public function set drawView(value:UIComponent):void
 			{
 				_drawView = value;
 				
 				drawViewChanged = true;
+			}
+			
+			protected function addedToStageHandler(event:Event):void
+			{
+				Multitouch.inputMode = MultitouchInputMode.GESTURE;
+				stage.addEventListener(TransformGestureEvent.GESTURE_PAN, onSwipeHandler);
+			}
+			
+			private function onSwipeHandler(event : TransformGestureEvent):void
+			{
+				if (this.effectShowDraw.isPlaying)
+					return;
+				
+				if (event.offsetY < 0)
+				{
+					this.showDrawer();
+				}
+			}
+			
+			protected function removedFromStageHandler(event:Event):void
+			{
+				stage.removeEventListener(TransformGestureEvent.GESTURE_PAN, onSwipeHandler);
 			}
 			
 			override protected function commitProperties():void
@@ -61,7 +87,17 @@
 				if (frontViewChanged)
 				{
 					holderFrontView.addElement(frontView);
-					effectShowDraw.targets = [holderFrontView, this.navigator.actionBar];
+					moveFrontView.targets = [holderFrontView];
+					
+					var i : int = 0;
+					var l : int = frontView.numElements;
+					for(;i < l; i++)
+					{
+						var child : UIComponent = frontView.getElementAt(i) as UIComponent;
+						this.fadeFrontView.targets.push(child);
+					} 
+					
+					holderFrontView.addEventListener(MouseEvent.CLICK, onMouseClickHandler);
 					
 					frontViewChanged = false;
 				}
@@ -69,80 +105,50 @@
 				if (drawViewChanged)
 				{
 					holderDrawerView.addElement(drawView);
+					this.moveFrontView.yTo = drawView.height * (-1);
 					
 					drawViewChanged = false;
 				}
-				
 			}
 			
-			protected function addedToStageHandler(event:Event):void
+			protected function showDrawer():void
 			{
-				Multitouch.inputMode = MultitouchInputMode.GESTURE;
-				stage.addEventListener(TransformGestureEvent.GESTURE_PAN, onPanHandler);
-				
-				addEventListener(MouseEvent.CLICK, onMouseClickHandler);
+				//this.navigator.hideActionBar(true);
+				effectShowDraw.play();
 			}
 			
-			private function onPanHandler(event : TransformGestureEvent):void
+			protected function hideDrawer():void
 			{
-				/* if (event.offsetY < 0)
-				{
-					effectShowDraw.play();
-				}
-				else
-				{
-					
-				} */
+				//this.navigator.showActionBar(true);
+				effectShowDraw.play(null, true);
 			}
 			
 			private function onMouseClickHandler(event : MouseEvent):void
 			{
-				if (!this.isDrawerOpen)
+				if (this.isDrawerOpen)
 				{
-					this.navigator.hideActionBar(true);
-					effectShowDraw.play();
+					this.hideDrawer();
 				}
-				else
-				{
-					this.navigator.showActionBar(true);
-					effectShowDraw.play(null, true);
-					holderFrontView.filters = [];
-					holderFrontView.enabled = true;
-				}
-			}
-			
-			protected function removedFromStageHandler(event:Event):void
-			{
-				stage.removeEventListener(TransformGestureEvent.GESTURE_PAN, onPanHandler);
-			}
-			
-			protected function frontViewCover_mouseDownHandler(event:MouseEvent):void
-			{
-				event.stopImmediatePropagation();
 			}
 			
 			protected function effectShowDraw_effectEndHandler(event:EffectEvent):void
 			{
 				this.isDrawerOpen = !isDrawerOpen;
 				
-				var uiBitmapData : BitmapData = new BitmapData(holderFrontView.width, holderFrontView.height);
-				uiBitmapData.draw(holderFrontView, new Matrix());
-				var coverImage : Image = new Image;
-				coverImage.source = new Bitmap(uiBitmapData);
-				holderFrontView.addElement(coverImage);
-				coverImage.addEventListener(MouseEvent.CLICK, onCoverImageClickHandler);
-				
-				removeEventListener(MouseEvent.CLICK, onMouseClickHandler);
+				for each (var child : UIComponent in this.fadeFrontView.targets)
+				{
+					child.enabled = (this.isDrawerOpen == false) 	
+				}
 			}
 			
 			protected function onCoverImageClickHandler(event : MouseEvent):void
 			{
-				
+				this.hideDrawer();
 			}
 			
 			protected function effectShowDraw_effectStartHandler(event:EffectEvent):void
 			{
-				trace(this.navigator.actionBar.y)
+				
 			}
 			
 		]]>
@@ -156,11 +162,14 @@
 					effectEnd="effectShowDraw_effectEndHandler(event)">
 			<s:children>
 				<s:Move id="moveFrontView" 
-						yFrom="0" 
-						yTo="-80"/>
-				<s:Fade id="fadeFrontView" alphaFrom="1" alphaTo=".6"/>
+						yFrom="0"/> 
+				<s:Fade id="fadeFrontView" 
+						alphaFrom="1" 
+						alphaTo=".3"/>
 			</s:children>
 		</s:Parallel>
+		
+		<s:DropShadowFilter id="shadowOnDrawer" color="#000000" distance="5" blurX="10" blurY="10" angle="90" alpha=".6"/>
 	</fx:Declarations>
 	
 	<s:Group id="holderDrawerView"
@@ -169,12 +178,6 @@
 	
 	<s:Group id="holderFrontView"
 			 width="100%"
-			 height="100%">
-		<!--<s:layout>
-			<s:HorizontalLayout horizontalAlign="center"
-								verticalAlign="middle"/>
-		</s:layout>
-		<s:Button label="Yarrr!!!"/>-->
-	</s:Group>
-	
+			 height="100%"
+			 filters="{ [ shadowOnDrawer ] }"/>
 </s:View>
