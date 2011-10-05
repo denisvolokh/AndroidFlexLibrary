@@ -9,7 +9,7 @@
 	</s:layout>
 	
 	<s:Button bottom="20" label="Test" horizontalCenter="0"/>
-	<!--<s:Button bottom="20" width="441" label="asdasdasdasdasd" horizontalCenter="0"/>
-	<s:CheckBox label="asdasdasdasdads" horizontalCenter="0" verticalCenter="0"/>-->
+	<!--<s:Button bottom="20" width="441" label="asdasdasdasdasd" horizontalCenter="0"/>-->
+	<s:CheckBox label="asdasdasdasdads" horizontalCenter="0" verticalCenter="0"/>
 	
 </s:SkinnableContainer>

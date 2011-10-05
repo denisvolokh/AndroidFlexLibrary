@@ -59,7 +59,7 @@
 			}
 			
 			//[Inspectable(category="General", enumeration="top,bottom,left,right", defaultValue="bottom")]
-			private var _drawerPosition : String = "bottom";
+			private var _drawerPosition : String = "";
 			
 			private var drawerPositionChanged : Boolean = false;
 			
@@ -85,7 +85,7 @@
 				
 				addEventListener(MouseEvent.CLICK, function(event : *):void
 				{
-					showDrawer();
+					//showDrawer();
 					//holderFrontView.visible = false;
 				});
 			}
@@ -121,7 +121,7 @@
 					{
 						var child : UIComponent = frontView.getElementAt(i) as UIComponent;
 						this.fadeFrontView.targets.push(child);
-					} 
+					}
 					
 					holderFrontView.addEventListener(MouseEvent.CLICK, onMouseClickHandler);
 					
@@ -130,45 +130,45 @@
 				
 				if (drawViewChanged)
 				{
-					holderDrawerView.addElement(drawView);
-					
-					setAnimationParameters();					
-					drawViewChanged = false;
+					if (frontView)
+					{
+						//holderDrawerView.addElement(drawView);
+						addElementAt(drawView, 0);
+						
+						setAnimationParameters();					
+						drawViewChanged = false;						
+					}
 				}
 				
 				if (drawerPositionChanged)
 				{
-					 holderDrawerView.setStyle("top", undefined);
-					holderDrawerView.setStyle("bottom", undefined);
-					holderDrawerView.setStyle("left", undefined);
-					holderDrawerView.setStyle("right", undefined);
-					
-					switch (_drawerPosition)
+					if (drawView)
 					{
-						case "top": 
-							holderDrawerView.setStyle("top", 0);
-							break;
-						case "bottom":
-							holderDrawerView.setStyle("bottom", 0);
-							break;
-						case "left":
-							holderDrawerView.setStyle("left", 0);
-							break;
-						case "right":
-							holderDrawerView.setStyle("right", 0);
-							break;
-					} 
-					
-					setAnimationParameters();
-					drawerPositionChanged = false;
+						drawView.setStyle("top", undefined);
+						drawView.setStyle("bottom", undefined);
+						drawView.setStyle("left", undefined);
+						drawView.setStyle("right", undefined);
+						
+						switch (_drawerPosition)
+						{
+							case "top": 
+								drawView.setStyle("top", 0);
+								break;
+							case "bottom":
+								drawView.setStyle("bottom", 0);
+								break;
+							case "left":
+								drawView.setStyle("left", 0);
+								break;
+							case "right":
+								drawView.setStyle("right", 0);
+								break;
+						} 
+						
+						setAnimationParameters();
+						drawerPositionChanged = false;						
+					}
 				}
-			}
-			
-			override protected function measure():void
-			{
-				super.measure();
-				
-				
 			}
 			
 			override protected function updateDisplayList(w:Number, h:Number):void
@@ -264,7 +264,9 @@
 		<s:DropShadowFilter id="shadowOnDrawer" color="#000000" distance="5" blurX="10" blurY="10" angle="90" alpha=".6"/>
 	</fx:Declarations>
 	
-	<s:Group id="holderDrawerView"/>
+	<!--<s:Group id="holderDrawerView"
+			 width="100%"
+			 height="100%"/>-->
 	
 	<s:Group id="holderFrontView"
 			 clipAndEnableScrolling="true"
