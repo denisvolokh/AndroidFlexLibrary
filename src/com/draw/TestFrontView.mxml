@@ -5,12 +5,11 @@
 		width="100%" height="100%">
 	
 	<s:layout>
-		<s:VerticalLayout horizontalAlign="center"
-						  verticalAlign="middle"/>
+		<s:BasicLayout />
 	</s:layout>
 	
-	<s:Button label="Test"/>
-	<s:Button width="441" label="asdasdasdasdasd"/>
-	<s:CheckBox label="asdasdasdasdads"/>
+	<s:Button bottom="20" label="Test" horizontalCenter="0"/>
+	<!--<s:Button bottom="20" width="441" label="asdasdasdasdasd" horizontalCenter="0"/>
+	<s:CheckBox label="asdasdasdasdads" horizontalCenter="0" verticalCenter="0"/>-->
 	
 </s:SkinnableContainer>

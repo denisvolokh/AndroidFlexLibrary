@@ -58,10 +58,36 @@
 				drawViewChanged = true;
 			}
 			
+			//[Inspectable(category="General", enumeration="top,bottom,left,right", defaultValue="bottom")]
+			private var _drawerPosition : String = "bottom";
+			
+			private var drawerPositionChanged : Boolean = false;
+			
+			public function get drawerPosition():String
+			{
+				return _drawerPosition;
+			}
+
+			public function set drawerPosition(value:String):void
+			{
+				if (_drawerPosition != value)
+				{
+					_drawerPosition = value;
+					
+					drawerPositionChanged = true;	
+				}
+			}
+			
 			protected function addedToStageHandler(event:Event):void
 			{
 				Multitouch.inputMode = MultitouchInputMode.GESTURE;
 				stage.addEventListener(TransformGestureEvent.GESTURE_PAN, onSwipeHandler);
+				
+				addEventListener(MouseEvent.CLICK, function(event : *):void
+				{
+					showDrawer();
+					//holderFrontView.visible = false;
+				});
 			}
 			
 			private function onSwipeHandler(event : TransformGestureEvent):void
@@ -105,9 +131,76 @@
 				if (drawViewChanged)
 				{
 					holderDrawerView.addElement(drawView);
-					this.moveFrontView.yTo = drawView.height * (-1);
 					
+					setAnimationParameters();					
 					drawViewChanged = false;
+				}
+				
+				if (drawerPositionChanged)
+				{
+					 holderDrawerView.setStyle("top", undefined);
+					holderDrawerView.setStyle("bottom", undefined);
+					holderDrawerView.setStyle("left", undefined);
+					holderDrawerView.setStyle("right", undefined);
+					
+					switch (_drawerPosition)
+					{
+						case "top": 
+							holderDrawerView.setStyle("top", 0);
+							break;
+						case "bottom":
+							holderDrawerView.setStyle("bottom", 0);
+							break;
+						case "left":
+							holderDrawerView.setStyle("left", 0);
+							break;
+						case "right":
+							holderDrawerView.setStyle("right", 0);
+							break;
+					} 
+					
+					setAnimationParameters();
+					drawerPositionChanged = false;
+				}
+			}
+			
+			override protected function measure():void
+			{
+				super.measure();
+				
+				
+			}
+			
+			override protected function updateDisplayList(w:Number, h:Number):void
+			{
+				super.updateDisplayList(w, h);
+				
+				holderFrontView.width = w;
+				holderFrontView.height = h;
+			}
+			
+			private function setAnimationParameters():void
+			{
+				switch (_drawerPosition)
+				{
+					case "top":
+						moveFrontView.yFrom = 0;
+						moveFrontView.yTo = drawView.height;
+						shadowOnDrawer.angle = 0;
+						break;
+					case "bottom":
+						moveFrontView.yFrom = 0;
+						moveFrontView.yTo = drawView.height * (-1);
+						shadowOnDrawer.angle = 90;
+						break;
+					case "left":
+						moveFrontView.xFrom = 0;
+						moveFrontView.xTo = drawView.width;
+						break;
+					case "right":
+						moveFrontView.xFrom = 0;
+						moveFrontView.xTo = drawView.width * (-1);
+						break;
 				}
 			}
 			
@@ -161,8 +254,7 @@
 					effectStart="effectShowDraw_effectStartHandler(event)"
 					effectEnd="effectShowDraw_effectEndHandler(event)">
 			<s:children>
-				<s:Move id="moveFrontView" 
-						yFrom="0"/> 
+				<s:Move id="moveFrontView"/> 
 				<s:Fade id="fadeFrontView" 
 						alphaFrom="1" 
 						alphaTo=".3"/>
@@ -172,12 +264,9 @@
 		<s:DropShadowFilter id="shadowOnDrawer" color="#000000" distance="5" blurX="10" blurY="10" angle="90" alpha=".6"/>
 	</fx:Declarations>
 	
-	<s:Group id="holderDrawerView"
-			 width="100%"
-			 bottom="0"/>
+	<s:Group id="holderDrawerView"/>
 	
 	<s:Group id="holderFrontView"
-			 width="100%"
-			 height="100%"
+			 clipAndEnableScrolling="true"
 			 filters="{ [ shadowOnDrawer ] }"/>
 </s:View>
