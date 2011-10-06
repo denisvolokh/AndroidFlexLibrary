@@ -35,6 +35,7 @@
 				_frontView = component;
 				
 				frontViewChanged = true;
+				invalidateProperties();
 			}
 			
 			public function get frontView():*
@@ -42,24 +43,24 @@
 				return _frontView;
 			}
 			
-			private var _drawView : UIComponent;
+			private var _drawerView : UIComponent;
 			
-			private var drawViewChanged : Boolean = false;
+			private var drawerViewChanged : Boolean = false;
 
-			public function get drawView():UIComponent
+			public function get drawerView():UIComponent
 			{
-				return _drawView;
+				return _drawerView;
 			}
 
-			public function set drawView(value:UIComponent):void
+			public function set drawerView(value:UIComponent):void
 			{
-				_drawView = value;
+				_drawerView = value;
 				
-				drawViewChanged = true;
+				drawerViewChanged = true;
+				invalidateProperties();
 			}
 			
-			//[Inspectable(category="General", enumeration="top,bottom,left,right", defaultValue="bottom")]
-			private var _drawerPosition : String = "";
+			private var _drawerPosition : String = "bottom";
 			
 			private var drawerPositionChanged : Boolean = false;
 			
@@ -67,7 +68,8 @@
 			{
 				return _drawerPosition;
 			}
-
+			
+			[Inspectable(enumeration="top,bottom,left,right", defaultValue="bottom")]
 			public function set drawerPosition(value:String):void
 			{
 				if (_drawerPosition != value)
@@ -75,13 +77,14 @@
 					_drawerPosition = value;
 					
 					drawerPositionChanged = true;	
+					invalidateProperties();
 				}
 			}
 			
 			protected function addedToStageHandler(event:Event):void
 			{
 				Multitouch.inputMode = MultitouchInputMode.GESTURE;
-				stage.addEventListener(TransformGestureEvent.GESTURE_PAN, onSwipeHandler);
+				stage.addEventListener(TransformGestureEvent.GESTURE_SWIPE, onSwipeHandler);
 				
 				addEventListener(MouseEvent.CLICK, function(event : *):void
 				{
@@ -94,16 +97,15 @@
 			{
 				if (this.effectShowDraw.isPlaying)
 					return;
+				if (isDrawerOpen)
+					return;
 				
-				if (event.offsetY < 0)
-				{
-					this.showDrawer();
-				}
+				this.showDrawer();
 			}
 			
 			protected function removedFromStageHandler(event:Event):void
 			{
-				stage.removeEventListener(TransformGestureEvent.GESTURE_PAN, onSwipeHandler);
+				stage.removeEventListener(TransformGestureEvent.GESTURE_SWIPE, onSwipeHandler);
 			}
 			
 			override protected function commitProperties():void
@@ -128,40 +130,41 @@
 					frontViewChanged = false;
 				}
 				
-				if (drawViewChanged)
+				if (drawerViewChanged)
 				{
 					if (frontView)
 					{
 						//holderDrawerView.addElement(drawView);
-						addElementAt(drawView, 0);
+						addElementAt(drawerView, 0);
+						drawerView.setStyle("bottom", 0);
 						
 						setAnimationParameters();					
-						drawViewChanged = false;						
+						drawerViewChanged = false;						
 					}
 				}
 				
 				if (drawerPositionChanged)
 				{
-					if (drawView)
+					if (drawerView)
 					{
-						drawView.setStyle("top", undefined);
-						drawView.setStyle("bottom", undefined);
-						drawView.setStyle("left", undefined);
-						drawView.setStyle("right", undefined);
+						drawerView.setStyle("top", undefined);
+						drawerView.setStyle("bottom", undefined);
+						drawerView.setStyle("left", undefined);
+						drawerView.setStyle("right", undefined);
 						
 						switch (_drawerPosition)
 						{
 							case "top": 
-								drawView.setStyle("top", 0);
+								drawerView.setStyle("top", 0);
 								break;
 							case "bottom":
-								drawView.setStyle("bottom", 0);
+								drawerView.setStyle("bottom", 0);
 								break;
 							case "left":
-								drawView.setStyle("left", 0);
+								drawerView.setStyle("left", 0);
 								break;
 							case "right":
-								drawView.setStyle("right", 0);
+								drawerView.setStyle("right", 0);
 								break;
 						} 
 						
@@ -185,21 +188,21 @@
 				{
 					case "top":
 						moveFrontView.yFrom = 0;
-						moveFrontView.yTo = drawView.height;
-						shadowOnDrawer.angle = 0;
+						moveFrontView.yTo = drawerView.height;
+						shadowOnDrawer.angle = 270;
 						break;
 					case "bottom":
 						moveFrontView.yFrom = 0;
-						moveFrontView.yTo = drawView.height * (-1);
+						moveFrontView.yTo = drawerView.height * (-1);
 						shadowOnDrawer.angle = 90;
 						break;
 					case "left":
 						moveFrontView.xFrom = 0;
-						moveFrontView.xTo = drawView.width;
+						moveFrontView.xTo = drawerView.width;
 						break;
 					case "right":
-						moveFrontView.xFrom = 0;
-						moveFrontView.xTo = drawView.width * (-1);
+						moveFrontView.xFrom = 180;
+						moveFrontView.xTo = drawerView.width * (-1);
 						break;
 				}
 			}

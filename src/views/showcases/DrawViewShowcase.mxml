@@ -12,8 +12,8 @@
 		<draw:TestFrontView />
 	</draw:frontView>
 	
-	<draw:drawView>
+	<draw:drawerView>
 		<draw:TestDrawerView />
-	</draw:drawView>
+	</draw:drawerView>
 	
 </draw:DrawView>

@@ -9,8 +9,6 @@
 		<s:fill><s:SolidColor color="0xFF000F"/></s:fill>
 	</s:Rect>-->
 	
-	<s:Button label="One"/>
-	<s:Button label="Two"/>
-	<s:Button label="Three"/>
+	<s:Label text="Place here your drawer component."/>
 	
 </s:HGroup>

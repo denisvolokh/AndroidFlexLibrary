@@ -5,11 +5,13 @@
 		width="100%" height="100%">
 	
 	<s:layout>
-		<s:BasicLayout />
+		<s:VerticalLayout horizontalAlign="center"
+						  verticalAlign="middle"/>
 	</s:layout>
 	
-	<s:Button bottom="20" label="Test" horizontalCenter="0"/>
-	<!--<s:Button bottom="20" width="441" label="asdasdasdasdasd" horizontalCenter="0"/>-->
-	<s:CheckBox label="asdasdasdasdads" horizontalCenter="0" verticalCenter="0"/>
+	<s:TextArea width="90%"
+				text="This is Front View. &#xd;Now swipe from bottom to top." 
+				textAlign="center"
+				borderVisible="false"/>	
 	
 </s:SkinnableContainer>
